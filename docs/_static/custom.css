@@ -1,3 +1,17 @@
 .wy-nav-content {
     margin: 0;
 }
+
+/* Fix: sphinx_rtd_theme sidebar sometimes loses its own scrollbar,
+   trapping the ToC below the viewport with no way to scroll back up. */
+.wy-nav-side {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.wy-side-scroll {
+    width: auto;
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
