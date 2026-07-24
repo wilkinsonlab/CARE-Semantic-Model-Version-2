@@ -23,7 +23,7 @@ This implementation requires two main transformation steps:
 
 1) **Data pre-validation and adaptation**
 
-    After creating this CSV template with the patient data on it, this CSV template needs to be adapted to YARRRML template before performing RDF transformation. This modification add additional fields and automatically make certain translations that reduce the complexity and burden on the data provider. This translation is executed by a component called [CARE-SM Toolkit](https://care-sm.readthedocs.io/en/latest/toolkit.html#).
+    After creating this CSV template with the patient data on it, this CSV template needs to be adapted to YARRRML template before performing RDF transformation. This modification add additional fields and automatically make certain translations that reduce the complexity and burden on the data provider. This translation is executed by a component called <a href="toolkit.html#">CARE-SM Toolkit</a>.
 
 2) **Data transformation into RDF** 
 
@@ -47,7 +47,7 @@ From those who are not interested in using FAIR-in-a-box or interested in explor
 
 2) **Quality control by CARE-SM Toolkit**: CARE-SM Toolkit will transform all your tagged CSV files e.g.: `Diagnosis.csv` to the curated CSV template called `CARE.csv` (green boxes from Figure 1).  This step generates a much richer CSV file that is used by the YARRRML to do the final RDF transformation.
 
-    Jump [here](https://care-sm.readthedocs.io/en/latest/toolkit.html#why-to-use-it) to know more in details about **CARE-SM Toolkit** how/why to use it.
+    Jump <a href="toolkit.html#why-to-use-it">here</a> to know more in details about **CARE-SM Toolkit** how/why to use it.
 
 3) **YARRRML template**: Alongside this standard CSV template, a YARRRML template defines the final RDF shape based on the CARE semantic model. This YARRRML template is provided [here](https://github.com/CARE-SM/CARE-SM-Implementation/tree/main/YARRRML/README.md) at this repository, so **there's no need for you to create it from scratch**.
 

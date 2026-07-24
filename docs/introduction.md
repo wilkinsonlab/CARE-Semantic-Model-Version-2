@@ -60,37 +60,37 @@ The metadata layer is implemented using named graphs, encapsulating each complet
 **List of Data Elements**
 
 - **Demographics:**
-  - [Birthdate](https://care-sm.readthedocs.io/en/latest/data_elements.html#birthdate)
-  - [Birthyear](https://care-sm.readthedocs.io/en/latest/data_elements.html#birthyear)
-  - [Birthplace](https://care-sm.readthedocs.io/en/latest/data_elements.html#birthplace)
-  - [Deathdate](https://care-sm.readthedocs.io/en/latest/data_elements.html#deathdate)
-  - [Sex](https://care-sm.readthedocs.io/en/latest/data_elements.html#sex)
+  - <a href="data_elements.html#birthdate">Birthdate</a>
+  - <a href="data_elements.html#birthyear">Birthyear</a>
+  - <a href="data_elements.html#birthplace">Birthplace</a>
+  - <a href="data_elements.html#deathdate">Deathdate</a>
+  - <a href="data_elements.html#sex">Sex</a>
 
 - **Participation and timeline:**
-  - [First confirmed visit](https://care-sm.readthedocs.io/en/latest/data_elements.html#birthdate)
-  - [Participation status](https://care-sm.readthedocs.io/en/latest/data_elements.html#participation-status)
-  - [Symptoms onset](https://care-sm.readthedocs.io/en/latest/data_elements.html#symptoms-onset)
+  - <a href="data_elements.html#birthdate">First confirmed visit</a>
+  - <a href="data_elements.html#participation-status">Participation status</a>
+  - <a href="data_elements.html#symptoms-onset">Symptoms onset</a>
 
 - **Conditions and findings:**
-  - [Diagnosis](https://care-sm.readthedocs.io/en/latest/data_elements.html#diagnosis)
-  - [Phenotype](https://care-sm.readthedocs.io/en/latest/data_elements.html#phenotype)
+  - <a href="data_elements.html#diagnosis">Diagnosis</a>
+  - <a href="data_elements.html#phenotype">Phenotype</a>
 
 - **Clinical measurements:**
-  - [Examination](https://care-sm.readthedocs.io/en/latest/data_elements.html#examination)
-  - [Laboratory](https://care-sm.readthedocs.io/en/latest/data_elements.html#laboratory-measurement)
-  - [Genetic](https://care-sm.readthedocs.io/en/latest/data_elements.html#genetic-testing)
+  - <a href="data_elements.html#examination">Examination</a>
+  - <a href="data_elements.html#laboratory-measurement">Laboratory</a>
+  - <a href="data_elements.html#genetic-testing">Genetic</a>
 
 - **Treatments and interventions:**
-  - [Medication](https://care-sm.readthedocs.io/en/latest/data_elements.html#medication)
-  - [Hospitalization](https://care-sm.readthedocs.io/en/latest/data_elements.html#hospitalization)
-  - [Surgery](https://care-sm.readthedocs.io/en/latest/data_elements.html#surgical-intervention)
+  - <a href="data_elements.html#medication">Medication</a>
+  - <a href="data_elements.html#hospitalization">Hospitalization</a>
+  - <a href="data_elements.html#surgical-intervention">Surgery</a>
 
 - **Patient-reported outcomes:**
-  - [Questionnaire](https://care-sm.readthedocs.io/en/latest/data_elements.html#questionnaire)
-  - [Disability](https://care-sm.readthedocs.io/en/latest/data_elements.html#disability)
+  - <a href="data_elements.html#questionnaire">Questionnaire</a>
+  - <a href="data_elements.html#disability">Disability</a>
 
 - **Research samples:**
-  - [Biobank](https://care-sm.readthedocs.io/en/latest/data_elements.html#biobank)
-  - [Consent](https://care-sm.readthedocs.io/en/latest/data_elements.html#consent)
-  - [Clinical trial](https://care-sm.readthedocs.io/en/latest/data_elements.html#clinical-trial)
-  - [Cohort](https://care-sm.readthedocs.io/en/latest/data_elements.html#cohort)
+  - <a href="data_elements.html#biobank">Biobank</a>
+  - <a href="data_elements.html#consent">Consent</a>
+  - <a href="data_elements.html#clinical-trial">Clinical trial</a>
+  - <a href="data_elements.html#cohort">Cohort</a>
