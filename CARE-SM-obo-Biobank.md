@@ -14,7 +14,7 @@ Note: "Unused Instance" nodes (grey diamonds) from the source diagram are omitte
 ```mermaid
 flowchart TD
     classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
-    classDef classNode fill:#ffffff,stroke:#82b366,stroke-width:7px,color:#333
+    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:11px
     classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333
     linkStyle default stroke:#555,stroke-width:5px
 
@@ -88,5 +88,7 @@ flowchart TD
     OBI_0000272 ~~~ SIO_000090
     NCIT_C25402 ~~~ SampleAccessionIdentifier
 
+    %% rdf:type edges (indices 1,3,5,6,8,9,14,15,16,17,18,19,21,22) de-emphasized so the structural backbone stands out
+    linkStyle 1,3,5,6,8,9,14,15,16,17,18,19,21,22 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
     linkStyle 24,25,26,27,28,29,30 stroke:none
 ```
