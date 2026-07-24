@@ -1,6 +1,7 @@
-# Clinical And Registry Entries (CARE) Semantic Model
-![GitHub tag](https://img.shields.io/github/v/tag/CARE-SM/CARE-Semantic-Model)
-[![License](https://img.shields.io/github/license/CARE-SM/CARE-Semantic-Model)](LICENSE)
+# Clinical And Registry Entries (CARE) Semantic Model — Version 2
+
+![GitHub tag](https://img.shields.io/github/v/tag/wilkinsonlab/CARE-Semantic-Model-Version-2)
+[![License](https://img.shields.io/github/license/wilkinsonlab/CARE-Semantic-Model-Version-2)](LICENSE)
 [![Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-contributor%20covenant-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 <p align="center">
@@ -15,6 +16,19 @@
 <p align="center">
   <strong>Take CARE of your data! FAIRly!</strong>
 </p>
+
+---
+
+## About This Version
+
+This repository is a **new, evolving version of the CARE Semantic Model**, derived from the [original CARE-SM](https://github.com/CARE-SM/CARE-Semantic-Model) developed by Pablo Alarcón-Moreno as part of his PhD thesis, [*"Applying deep semantics to the representation of clinical data to improve machine usability"*](https://oa.upm.es/83239/) (Universidad Politécnica de Madrid, 2024).
+
+Building on that foundation, this version aims to:
+
+- **Consolidate and harmonize** several of the original individual data element models into a more unified, consistent representation.
+- **Adapt the models to handle real-world use-cases** that could not be represented in the original CARE-SM. For example, the original model had no way to represent a *negative* observation — e.g. a phenotype test whose result is "false" — even though that absence-of-finding is itself an important, recordable fact.
+
+**This work is under active construction.** Models, structures, and documentation here may change as the harmonization effort progresses. We welcome feedback, questions, and suggestions — see [Communication and Feedback](#communication-and-feedback) below.
 
 ---
 ## Full Documentation
