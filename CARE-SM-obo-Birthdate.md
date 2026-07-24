@@ -11,11 +11,12 @@ Mermaid transcription of [`CARE-SM-obo-Birthdate.drawio.png`](https://raw.github
 - Rectangle, blue border = Data value
 
 ```mermaid
-flowchart TD
-    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:2px,color:#333
-    classDef unusedInstance fill:#f5f5f5,stroke:#666666,stroke-width:2px,color:#333
-    classDef classNode fill:#ffffff,stroke:#82b366,stroke-width:2px,color:#333
-    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:2px,color:#333
+flowchart LR
+    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
+    classDef unusedInstance fill:#f5f5f5,stroke:#666666,stroke-width:7px,color:#333
+    classDef classNode fill:#ffffff,stroke:#82b366,stroke-width:7px,color:#333
+    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333
+    linkStyle default stroke:#555,stroke-width:5px
 
     %% Instances
     ID_{{ID_}}:::usedInstance
