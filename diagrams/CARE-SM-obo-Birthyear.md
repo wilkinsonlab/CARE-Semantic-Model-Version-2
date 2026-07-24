@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Symptoms Onset
+# CARE-SM OBO Model — Birthyear
 
-Mermaid transcription of [`CARE-SM-obo-Symptoms_onset.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Symptoms_onset.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-Birthyear.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Birthyear.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -12,6 +12,7 @@ Mermaid transcription of [`CARE-SM-obo-Symptoms_onset.drawio.png`](https://raw.g
 <br/>
 <br/>
 
+<!-- mermaid-start -->
 ```mermaid
 flowchart TD
     classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
@@ -27,7 +28,6 @@ flowchart TD
     Output_{{Output_}}:::usedInstance
     Attribute_{{Attribute_}}:::usedInstance
     URIProtocol{{"URI for the protocol"}}:::usedInstance
-    IRISymptomCode{{"IRI for a particular symptom code"}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -39,17 +39,16 @@ flowchart TD
     OBI_0000272["obo:OBI_0000272<br/>(protocol)"]:::classNode
     SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
     SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
-    NCIT_C4876["obo:NCIT_C4876<br/>(Symptom)"]:::classNode
     NCIT_C70856["obo:NCIT_C70856<br/>(Observation Result)"]:::classNode
-    NCIT_C124353["obo:NCIT_C124353<br/>(Symptom Onset)"]:::classNode
+    NCIT_C83164["obo:NCIT_C83164<br/>(Birth Year)"]:::classNode
     SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
-    ISO8601OrAgeOnset["ISO 8601 formatted date OR<br/>Age of onset"]:::dataValue
+    BirthYearValue["The year in which a person was born, defined as YYYY."]:::dataValue
 
-    %% Real edges (indices 0-23)
+    %% Real edges (indices 0-20)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
     ID_ -->|"rdf:type"| SIO_000115
     ID_ -->|"sio:SIO_000020 (denotes)"| Role_
@@ -61,37 +60,33 @@ flowchart TD
     Role_ -->|"rdf:type"| SIO_000016
     Role_ -->|"sio:SIO_000356 (is realized in)"| Process_
 
-    Process_ -->|"sio:SIO_000291 (has target)"| IRISymptomCode
-    Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"rdf:type"| SIO_000006
     Process_ -->|"rdf:type"| NCIT_C142470
     Process_ -->|"rdfs:comment"| Comments
+    Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
-
-    IRISymptomCode -->|"rdf:type"| NCIT_C4876
-    IRISymptomCode -->|"rdf:type"| SIO_000015
 
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
-    Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
-    Output_ -->|"rdf:type"| NCIT_C70856
     Output_ -->|"rdf:type"| SIO_000015
-    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601OrAgeOnset
+    Output_ -->|"rdf:type"| NCIT_C70856
+    Output_ -->|"sio:SIO_000300 (has value)"| BirthYearValue
+    Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
 
-    Attribute_ -->|"rdf:type"| NCIT_C124353
+    Attribute_ -->|"rdf:type"| NCIT_C83164
     Attribute_ -->|"rdf:type"| SIO_000614
 
-    %% Invisible layout-only chains (indices 24-32, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
-    NCIT_C4876 ~~~ SIO_000015
     OBI_0000272 ~~~ SIO_000090
-    NCIT_C70856 ~~~ SIO_000015 ~~~ ISO8601OrAgeOnset
-    NCIT_C124353 ~~~ SIO_000614
+    SIO_000015 ~~~ NCIT_C70856 ~~~ BirthYearValue
+    NCIT_C83164 ~~~ SIO_000614
 
-    %% rdf:type edges (indices 1,3,5,6,10,11,14,15,16,17,19,20,22,23) de-emphasized so the structural backbone stands out
-    linkStyle 1,3,5,6,10,11,14,15,16,17,19,20,22,23 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 24,25,26,27,28,29,30,31,32 stroke:none
+    %% rdf:type edges (indices 1,3,5,6,8,9,13,14,15,16,19,20) de-emphasized so the structural backbone stands out
+    linkStyle 1,3,5,6,8,9,13,14,15,16,19,20 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
+    linkStyle 21,22,23,24,25,26,27,28 stroke:none
 ```
+<!-- mermaid-end -->

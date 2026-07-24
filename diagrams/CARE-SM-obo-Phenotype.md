@@ -12,6 +12,7 @@ Mermaid transcription of [`CARE-SM-obo-Phenotype.drawio.png`](https://raw.github
 <br/>
 <br/>
 
+<!-- mermaid-start -->
 ```mermaid
 flowchart TD
     classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
@@ -120,3 +121,4 @@ flowchart TD
     linkStyle 1,3,5,6,10,11,14,15,16,17,20,21,23,24,25,26,30,33 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
     linkStyle 34,35,36,37,38,39,40,41,42,43,44,45,46 stroke:none
 ```
+<!-- mermaid-end -->

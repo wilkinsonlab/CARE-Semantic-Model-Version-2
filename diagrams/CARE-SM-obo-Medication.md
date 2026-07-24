@@ -12,6 +12,7 @@ Mermaid transcription of [`CARE-SM-obo-Medication.drawio.png`](https://raw.githu
 <br/>
 <br/>
 
+<!-- mermaid-start -->
 ```mermaid
 flowchart TD
     classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
@@ -111,3 +112,4 @@ flowchart TD
     linkStyle 1,3,5,6,8,9,16,17,18,19,20,21,23,24,26,27,29,30 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
     linkStyle 31,32,33,34,35,36,37,38,39,40 stroke:none
 ```
+<!-- mermaid-end -->

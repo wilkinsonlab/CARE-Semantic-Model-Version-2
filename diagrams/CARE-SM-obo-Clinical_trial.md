@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Deathdate
+# CARE-SM OBO Model — Clinical Trial
 
-Mermaid transcription of [`CARE-SM-obo-Deathdate.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Deathdate.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-Clinical_trial.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Clinical_trial.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -12,6 +12,7 @@ Mermaid transcription of [`CARE-SM-obo-Deathdate.drawio.png`](https://raw.github
 <br/>
 <br/>
 
+<!-- mermaid-start -->
 ```mermaid
 flowchart TD
     classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
@@ -24,30 +25,29 @@ flowchart TD
     Individual_{{Individual_}}:::usedInstance
     Role_{{Role_}}:::usedInstance
     Process_{{Process_}}:::usedInstance
-    Output_{{Output_}}:::usedInstance
-    Attribute_{{Attribute_}}:::usedInstance
+    IRIGeneticDisease{{"IRI for the genetic or disease annotation studied"}}:::usedInstance
     URIProtocol{{"URI for the protocol"}}:::usedInstance
-    IRIConditionCode{{"IRI for the condition code"}}:::usedInstance
+    Output_{{Output_}}:::usedInstance
+    Output_identifier_{{Output_identifier_}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
     SIO_000498["sio:SIO_000498<br/>(person)"]:::classNode
-    OBI_0000093["obo:OBI_0000093<br/>(patient role)"]:::classNode
+    OBI_0000097["obo:OBI_0000097<br/>(participant under investigation role)"]:::classNode
     SIO_000016["sio:SIO_000016<br/>(role)"]:::classNode
     SIO_000006["sio:SIO_000006<br/>(process)"]:::classNode
-    NCIT_C142470["obo:NCIT_C142470<br/>(Data Capture)"]:::classNode
+    NCIT_C71104["obo:NCIT_C71104<br/>(Clinical trial)"]:::classNode
+    SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
+    NCIT_C7057["obo:NCIT_C7057<br/>(Disease or Disorder)"]:::classNode
     OBI_0000272["obo:OBI_0000272<br/>(protocol)"]:::classNode
     SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
-    SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
-    NCIT_C70856["obo:NCIT_C70856<br/>(Observation Result)"]:::classNode
-    NCIT_C81239["obo:NCIT_C81239<br/>(Cause of Death)"]:::classNode
-    SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
-    NCIT_C70810["obo:NCIT_C70810<br/>(Date of Death)"]:::classNode
+    NCIT_C142439["obo:NCIT_C142439<br/>(Clinical Study Report)"]:::classNode
+    NCIT_C83082["obo:NCIT_C83082<br/>(Study Identifier)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
-    ISO8601["ISO 8601 formatted date"]:::dataValue
+    ReportStudyIdentifier["Report study identifier"]:::dataValue
 
     %% Real edges (indices 0-23)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
@@ -57,41 +57,41 @@ flowchart TD
     Individual_ -->|"rdf:type"| SIO_000498
     Individual_ -->|"sio:SIO_000228 (has role)"| Role_
 
-    Role_ -->|"rdf:type"| OBI_0000093
+    Role_ -->|"rdf:type"| OBI_0000097
     Role_ -->|"rdf:type"| SIO_000016
     Role_ -->|"sio:SIO_000356 (is realized in)"| Process_
 
     Process_ -->|"rdf:type"| SIO_000006
-    Process_ -->|"rdf:type"| NCIT_C142470
+    Process_ -->|"rdf:type"| NCIT_C71104
     Process_ -->|"rdfs:comment"| Comments
+    Process_ -->|"sio:SIO_000291 (has target)"| IRIGeneticDisease
     Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
+
+    IRIGeneticDisease -->|"rdf:type"| SIO_000015
+    IRIGeneticDisease -->|"rdf:type"| NCIT_C7057
 
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
-    Output_ -->|"rdf:type"| NCIT_C70856
     Output_ -->|"rdf:type"| SIO_000015
-    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601
-    Output_ -->|"sio:SIO_00243 (is causally related with)"| IRIConditionCode
-    Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
+    Output_ -->|"rdf:type"| NCIT_C142439
+    Output_ -->|"sio:SIO_000671 (has identifier)"| Output_identifier_
 
-    IRIConditionCode -->|"rdf:type"| SIO_000015
-    IRIConditionCode -->|"rdf:type"| NCIT_C81239
+    Output_identifier_ -->|"rdf:type"| SIO_000115
+    Output_identifier_ -->|"rdf:type"| NCIT_C83082
+    Output_identifier_ -->|"sio:SIO_000300 (has value)"| ReportStudyIdentifier
 
-    Attribute_ -->|"rdf:type"| SIO_000614
-    Attribute_ -->|"rdf:type"| NCIT_C70810
-
-    %% Invisible layout-only chains (indices 24-32, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 24-30, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
-    OBI_0000093 ~~~ SIO_000016
-    SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
+    OBI_0000097 ~~~ SIO_000016
+    SIO_000006 ~~~ NCIT_C71104 ~~~ Comments
+    SIO_000015 ~~~ NCIT_C7057
     OBI_0000272 ~~~ SIO_000090
-    NCIT_C70856 ~~~ SIO_000015 ~~~ ISO8601
-    SIO_000015 ~~~ NCIT_C81239
-    SIO_000614 ~~~ NCIT_C70810
+    NCIT_C83082 ~~~ ReportStudyIdentifier
 
-    %% rdf:type edges (indices 1,3,5,6,8,9,13,14,15,16,20,21,22,23) de-emphasized so the structural backbone stands out
-    linkStyle 1,3,5,6,8,9,13,14,15,16,20,21,22,23 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 24,25,26,27,28,29,30,31,32 stroke:none
+    %% rdf:type edges (indices 1,3,5,6,8,9,14,15,16,17,18,19,21,22) de-emphasized so the structural backbone stands out
+    linkStyle 1,3,5,6,8,9,14,15,16,17,18,19,21,22 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
+    linkStyle 24,25,26,27,28,29,30 stroke:none
 ```
+<!-- mermaid-end -->

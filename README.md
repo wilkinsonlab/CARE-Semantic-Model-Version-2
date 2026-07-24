@@ -33,8 +33,16 @@ Building on that foundation, this version aims to:
 ---
 ## Full Documentation
 
-You can explore the complete documentation 
-<a href="https://care-sm.readthedocs.io/en/latest/">here</a>
+This repository now has its **own documentation site**, built with Sphinx from the [`docs/`](docs/) folder, mirroring the structure of the original CARE-SM documentation but with the data element diagrams rendered as Mermaid diagrams directly from this repo instead of static images.
+
+Until it is connected to ReadTheDocs, you can build it locally:
+
+```bash
+pip install -r docs/requirements.txt
+sphinx-build -b html docs docs/_build/html
+```
+
+Then open `docs/_build/html/index.html` in a browser.
 
 The documentation includes:
 - Detailed descriptions of all data elements

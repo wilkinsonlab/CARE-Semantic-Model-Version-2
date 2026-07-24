@@ -12,6 +12,7 @@ Mermaid transcription of [`CARE-SM-obo-Questionnaire.drawio.png`](https://raw.gi
 <br/>
 <br/>
 
+<!-- mermaid-start -->
 ```mermaid
 flowchart TD
     classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
@@ -87,3 +88,4 @@ flowchart TD
     linkStyle 1,3,5,6,8,9,14,15,16,17,18,19 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
     linkStyle 21,22,23,24,25,26,27 stroke:none
 ```
+<!-- mermaid-end -->

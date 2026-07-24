@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Participation Status
+# CARE-SM OBO Model — Birthplace
 
-Mermaid transcription of [`CARE-SM-obo-Status.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Status.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-Birthplace.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Birthplace.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -12,6 +12,7 @@ Mermaid transcription of [`CARE-SM-obo-Status.drawio.png`](https://raw.githubuse
 <br/>
 <br/>
 
+<!-- mermaid-start -->
 ```mermaid
 flowchart TD
     classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
@@ -27,6 +28,7 @@ flowchart TD
     Output_{{Output_}}:::usedInstance
     Attribute_{{Attribute_}}:::usedInstance
     URIProtocol{{"URI for the protocol"}}:::usedInstance
+    IRICountryCode{{"IRI for country code"}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -38,16 +40,17 @@ flowchart TD
     OBI_0000272["obo:OBI_0000272<br/>(protocol)"]:::classNode
     SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
     SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
-    OPMI_0000326["obo:OPMI_0000326<br/>(Status)"]:::classNode
+    NCIT_C25464["obo:NCIT_C25464<br/>(Country)"]:::classNode
+    NCIT_C20108["obo:NCIT_C20108<br/>(Country Code)"]:::classNode
     SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
-    PersonStatusChildIRI["child IRI of obo:NCIT_C171086 (Person Status), e.g.:<br/>obo:NCIT_C37987 (Alive)<br/>obo:NCIT_C90387 (Found Dead)<br/>obo:NCIT_C48227 (Lost To Follow-Up)<br/>obo:NCIT_C124784 (Refusal to Participate)"]:::classNode
+    NCIT_C176764["obo:NCIT_C176764<br/>(Birthplace)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
-    StatusName["Status name"]:::dataValue
+    CountryName["Country name"]:::dataValue
 
-    %% Real edges (indices 0-20)
+    %% Real edges (indices 0-23)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
     ID_ -->|"rdf:type"| SIO_000115
     ID_ -->|"sio:SIO_000020 (denotes)"| Role_
@@ -59,32 +62,38 @@ flowchart TD
     Role_ -->|"rdf:type"| SIO_000016
     Role_ -->|"sio:SIO_000356 (is realized in)"| Process_
 
-    Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"rdf:type"| SIO_000006
     Process_ -->|"rdf:type"| NCIT_C142470
     Process_ -->|"rdfs:comment"| Comments
+    Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
 
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
-    Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
-    Output_ -->|"sio:SIO_000300 (has value)"| StatusName
+    Output_ -->|"sio:SIO_000671 (has identifier)"| IRICountryCode
+    Output_ -->|"rdf:type"| NCIT_C25464
     Output_ -->|"rdf:type"| SIO_000015
-    Output_ -->|"rdf:type"| OPMI_0000326
+    Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
+
+    IRICountryCode -->|"rdf:type"| SIO_000115
+    IRICountryCode -->|"rdf:type"| NCIT_C20108
+    IRICountryCode -->|"sio:SIO_000300 (has value)"| CountryName
 
     Attribute_ -->|"rdf:type"| SIO_000614
-    Attribute_ -->|"rdf:type"| PersonStatusChildIRI
+    Attribute_ -->|"rdf:type"| NCIT_C176764
 
-    %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 24-32, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
     OBI_0000272 ~~~ SIO_000090
-    StatusName ~~~ SIO_000015 ~~~ OPMI_0000326
-    SIO_000614 ~~~ PersonStatusChildIRI
+    NCIT_C25464 ~~~ SIO_000015
+    SIO_000115 ~~~ NCIT_C20108 ~~~ CountryName
+    SIO_000614 ~~~ NCIT_C176764
 
-    %% rdf:type edges (indices 1,3,5,6,9,10,13,14,17,18,19,20) de-emphasized so the structural backbone stands out
-    linkStyle 1,3,5,6,9,10,13,14,17,18,19,20 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 21,22,23,24,25,26,27,28 stroke:none
+    %% rdf:type edges (indices 1,3,5,6,8,9,13,14,16,17,19,20,22,23) de-emphasized so the structural backbone stands out
+    linkStyle 1,3,5,6,8,9,13,14,16,17,19,20,22,23 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
+    linkStyle 24,25,26,27,28,29,30,31,32 stroke:none
 ```
+<!-- mermaid-end -->

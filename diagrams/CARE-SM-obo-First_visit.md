@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Biobank
+# CARE-SM OBO Model — First Confirmed Visit
 
-Mermaid transcription of [`CARE-SM-obo-Biobank.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Biobank.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-First_visit.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-First_visit.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -12,6 +12,7 @@ Mermaid transcription of [`CARE-SM-obo-Biobank.drawio.png`](https://raw.githubus
 <br/>
 <br/>
 
+<!-- mermaid-start -->
 ```mermaid
 flowchart TD
     classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
@@ -24,10 +25,9 @@ flowchart TD
     Individual_{{Individual_}}:::usedInstance
     Role_{{Role_}}:::usedInstance
     Process_{{Process_}}:::usedInstance
-    Input_{{Input_}}:::usedInstance
-    URIProtocol{{"URI for the protocol"}}:::usedInstance
     Output_{{Output_}}:::usedInstance
-    Output_identifier_{{Output_identifier_}}:::usedInstance
+    Attribute_{{Attribute_}}:::usedInstance
+    URIProtocol{{"URI for the protocol"}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -35,20 +35,20 @@ flowchart TD
     OBI_0000093["obo:OBI_0000093<br/>(patient role)"]:::classNode
     SIO_000016["sio:SIO_000016<br/>(role)"]:::classNode
     SIO_000006["sio:SIO_000006<br/>(process)"]:::classNode
-    OBIB_0000668["obo:OBIB_0000668<br/>(sampling specimens for biobank)"]:::classNode
-    NCIT_C12692["IRI for anatomic structure or substance sampled, e.g.:<br/>obo:NCIT_C12692<br/>(Cerebrospinal Fluid)"]:::classNode
-    SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
+    NCIT_C142470["obo:NCIT_C142470<br/>(Data Capture)"]:::classNode
     OBI_0000272["obo:OBI_0000272<br/>(protocol)"]:::classNode
     SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
-    NCIT_C19697["obo:NCIT_C19697<br/>(Tissue Sample)"]:::classNode
-    NCIT_C25402["obo:NCIT_C25402<br/>(Accession Number)"]:::classNode
+    SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
+    NCIT_C70856["obo:NCIT_C70856<br/>(Observation Result)"]:::classNode
+    NCIT_C159705["obo:NCIT_C159705<br/>(First Confirmed Visit)"]:::classNode
+    SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
-    SampleAccessionIdentifier["Sample accession identfier"]:::dataValue
+    ISO8601["ISO 8601 formatted date"]:::dataValue
 
-    %% Real edges (indices 0-23)
+    %% Real edges (indices 0-20)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
     ID_ -->|"rdf:type"| SIO_000115
     ID_ -->|"sio:SIO_000020 (denotes)"| Role_
@@ -60,36 +60,33 @@ flowchart TD
     Role_ -->|"rdf:type"| SIO_000016
     Role_ -->|"sio:SIO_000356 (is realized in)"| Process_
 
-    Process_ -->|"rdf:type"| SIO_000006
-    Process_ -->|"rdf:type"| OBIB_0000668
-    Process_ -->|"rdfs:comment"| Comments
-    Process_ -->|"sio:SIO_000230 (has input)"| Input_
     Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
+    Process_ -->|"rdf:type"| SIO_000006
+    Process_ -->|"rdf:type"| NCIT_C142470
+    Process_ -->|"rdfs:comment"| Comments
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
-
-    Input_ -->|"rdf:type"| NCIT_C12692
-    Input_ -->|"rdf:type"| SIO_000015
 
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
+    Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
+    Output_ -->|"rdf:type"| NCIT_C70856
     Output_ -->|"rdf:type"| SIO_000015
-    Output_ -->|"rdf:type"| NCIT_C19697
-    Output_ -->|"sio:SIO_000671 (has identifier)"| Output_identifier_
+    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601
 
-    Output_identifier_ -->|"rdf:type"| SIO_000115
-    Output_identifier_ -->|"rdf:type"| NCIT_C25402
-    Output_identifier_ -->|"sio:SIO_000300 (has value)"| SampleAccessionIdentifier
+    Attribute_ -->|"rdf:type"| NCIT_C159705
+    Attribute_ -->|"rdf:type"| SIO_000614
 
-    %% Invisible layout-only chains (indices 24-30, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
-    SIO_000006 ~~~ OBIB_0000668 ~~~ Comments
-    NCIT_C12692 ~~~ SIO_000015
+    SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
     OBI_0000272 ~~~ SIO_000090
-    NCIT_C25402 ~~~ SampleAccessionIdentifier
+    NCIT_C70856 ~~~ SIO_000015 ~~~ ISO8601
+    NCIT_C159705 ~~~ SIO_000614
 
-    %% rdf:type edges (indices 1,3,5,6,8,9,14,15,16,17,18,19,21,22) de-emphasized so the structural backbone stands out
-    linkStyle 1,3,5,6,8,9,14,15,16,17,18,19,21,22 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 24,25,26,27,28,29,30 stroke:none
+    %% rdf:type edges (indices 1,3,5,6,9,10,13,14,16,17,19,20) de-emphasized so the structural backbone stands out
+    linkStyle 1,3,5,6,9,10,13,14,16,17,19,20 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
+    linkStyle 21,22,23,24,25,26,27,28 stroke:none
 ```
+<!-- mermaid-end -->
