@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Birthdate
+# CARE-SM OBO Model — Diagnosis
 
-Mermaid transcription of [`CARE-SM-obo-Birthdate.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Birthdate.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-Diagnosis.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Diagnosis.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -23,9 +23,11 @@ flowchart TD
     Individual_{{Individual_}}:::usedInstance
     Role_{{Role_}}:::usedInstance
     Process_{{Process_}}:::usedInstance
+    Target_{{Target_}}:::usedInstance
+    URIProtocol{{"URI for the protocol"}}:::usedInstance
     Output_{{Output_}}:::usedInstance
     Attribute_{{Attribute_}}:::usedInstance
-    URIProtocol{{"URI for the protocol"}}:::usedInstance
+    IRIDiseaseCode{{"IRI for disease code"}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -33,20 +35,22 @@ flowchart TD
     OBI_0000093["obo:OBI_0000093<br/>(patient role)"]:::classNode
     SIO_000016["sio:SIO_000016<br/>(role)"]:::classNode
     SIO_000006["sio:SIO_000006<br/>(process)"]:::classNode
-    NCIT_C142470["obo:NCIT_C142470<br/>(Data Capture)"]:::classNode
+    NCIT_C18020["obo:NCIT_C18020<br/>(Diagnostic Procedure)"]:::classNode
+    SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
+    AnatomicStructureIRI["IRI for the anatomic structure<br/>measured, e.g.:<br/>obo:NCIT_C12419 (Head)"]:::classNode
     OBI_0000272["obo:OBI_0000272<br/>(protocol)"]:::classNode
     SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
-    SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
-    NCIT_C70856["obo:NCIT_C70856<br/>(Observation Result)"]:::classNode
-    NCIT_C68615["obo:NCIT_C68615<br/>(Birth Date)"]:::classNode
     SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
+    NCIT_C7057["obo:NCIT_C7057<br/>(Disease or Disorder)"]:::classNode
+    OGMS_0000073["obo:OGMS_0000073<br/>(Diagnosis)"]:::classNode
+    NCIT_C154625["obo:NCIT_C154625<br/>(Diagnosis Code)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
-    ISO8601["ISO 8601 formatted date"]:::dataValue
+    DiagnosisName["Diagnosis name"]:::dataValue
 
-    %% Real edges (indices 0-20)
+    %% Real edges (indices 0-26)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
     ID_ -->|"rdf:type"| SIO_000115
     ID_ -->|"sio:SIO_000020 (denotes)"| Role_
@@ -59,29 +63,39 @@ flowchart TD
     Role_ -->|"sio:SIO_000356 (is realized in)"| Process_
 
     Process_ -->|"rdf:type"| SIO_000006
-    Process_ -->|"rdf:type"| NCIT_C142470
+    Process_ -->|"rdf:type"| NCIT_C18020
     Process_ -->|"rdfs:comment"| Comments
+    Process_ -->|"sio:SIO_000291 (has target)"| Target_
     Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
+
+    Target_ -->|"rdf:type"| SIO_000015
+    Target_ -->|"rdf:type"| AnatomicStructureIRI
 
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
-    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601
-    Output_ -->|"rdf:type"| SIO_000015
-    Output_ -->|"rdf:type"| NCIT_C70856
     Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
+    Output_ -->|"rdf:type"| OGMS_0000073
+    Output_ -->|"rdf:type"| SIO_000015
+    Output_ -->|"sio:SIO_000671 (has identifier)"| IRIDiseaseCode
 
-    Attribute_ -->|"rdf:type"| NCIT_C68615
     Attribute_ -->|"rdf:type"| SIO_000614
+    Attribute_ -->|"rdf:type"| NCIT_C7057
 
-    %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
+    IRIDiseaseCode -->|"rdf:type"| SIO_000115
+    IRIDiseaseCode -->|"sio:SIO_000300 (has value)"| DiagnosisName
+    IRIDiseaseCode -->|"rdf:type"| NCIT_C154625
+
+    %% Invisible layout-only chains (indices 27-36, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
-    SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
+    SIO_000006 ~~~ NCIT_C18020 ~~~ Comments
+    SIO_000015 ~~~ AnatomicStructureIRI
     OBI_0000272 ~~~ SIO_000090
-    ISO8601 ~~~ SIO_000015 ~~~ NCIT_C70856
-    NCIT_C68615 ~~~ SIO_000614
+    OGMS_0000073 ~~~ SIO_000015
+    SIO_000614 ~~~ NCIT_C7057
+    SIO_000115 ~~~ DiagnosisName ~~~ NCIT_C154625
 
-    linkStyle 21,22,23,24,25,26,27,28 stroke:none
+    linkStyle 27,28,29,30,31,32,33,34,35,36 stroke:none
 ```

@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Birthdate
+# CARE-SM OBO Model — Symptoms Onset
 
-Mermaid transcription of [`CARE-SM-obo-Birthdate.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Birthdate.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-Symptoms_onset.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Symptoms_onset.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -26,6 +26,7 @@ flowchart TD
     Output_{{Output_}}:::usedInstance
     Attribute_{{Attribute_}}:::usedInstance
     URIProtocol{{"URI for the protocol"}}:::usedInstance
+    IRISymptomCode{{"IRI for a particular symptom code"}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -37,16 +38,17 @@ flowchart TD
     OBI_0000272["obo:OBI_0000272<br/>(protocol)"]:::classNode
     SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
     SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
+    NCIT_C4876["obo:NCIT_C4876<br/>(Symptom)"]:::classNode
     NCIT_C70856["obo:NCIT_C70856<br/>(Observation Result)"]:::classNode
-    NCIT_C68615["obo:NCIT_C68615<br/>(Birth Date)"]:::classNode
+    NCIT_C124353["obo:NCIT_C124353<br/>(Symptom Onset)"]:::classNode
     SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
-    ISO8601["ISO 8601 formatted date"]:::dataValue
+    ISO8601OrAgeOnset["ISO 8601 formatted date OR<br/>Age of onset"]:::dataValue
 
-    %% Real edges (indices 0-20)
+    %% Real edges (indices 0-23)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
     ID_ -->|"rdf:type"| SIO_000115
     ID_ -->|"sio:SIO_000020 (denotes)"| Role_
@@ -58,30 +60,35 @@ flowchart TD
     Role_ -->|"rdf:type"| SIO_000016
     Role_ -->|"sio:SIO_000356 (is realized in)"| Process_
 
+    Process_ -->|"sio:SIO_000291 (has target)"| IRISymptomCode
+    Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"rdf:type"| SIO_000006
     Process_ -->|"rdf:type"| NCIT_C142470
     Process_ -->|"rdfs:comment"| Comments
-    Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
+
+    IRISymptomCode -->|"rdf:type"| NCIT_C4876
+    IRISymptomCode -->|"rdf:type"| SIO_000015
 
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
-    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601
-    Output_ -->|"rdf:type"| SIO_000015
-    Output_ -->|"rdf:type"| NCIT_C70856
     Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
+    Output_ -->|"rdf:type"| NCIT_C70856
+    Output_ -->|"rdf:type"| SIO_000015
+    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601OrAgeOnset
 
-    Attribute_ -->|"rdf:type"| NCIT_C68615
+    Attribute_ -->|"rdf:type"| NCIT_C124353
     Attribute_ -->|"rdf:type"| SIO_000614
 
-    %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 24-32, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
+    NCIT_C4876 ~~~ SIO_000015
     OBI_0000272 ~~~ SIO_000090
-    ISO8601 ~~~ SIO_000015 ~~~ NCIT_C70856
-    NCIT_C68615 ~~~ SIO_000614
+    NCIT_C70856 ~~~ SIO_000015 ~~~ ISO8601OrAgeOnset
+    NCIT_C124353 ~~~ SIO_000614
 
-    linkStyle 21,22,23,24,25,26,27,28 stroke:none
+    linkStyle 24,25,26,27,28,29,30,31,32 stroke:none
 ```

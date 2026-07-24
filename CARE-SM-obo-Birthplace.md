@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Birthdate
+# CARE-SM OBO Model — Birthplace
 
-Mermaid transcription of [`CARE-SM-obo-Birthdate.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Birthdate.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-Birthplace.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Birthplace.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -26,6 +26,7 @@ flowchart TD
     Output_{{Output_}}:::usedInstance
     Attribute_{{Attribute_}}:::usedInstance
     URIProtocol{{"URI for the protocol"}}:::usedInstance
+    IRICountryCode{{"IRI for country code"}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -37,16 +38,17 @@ flowchart TD
     OBI_0000272["obo:OBI_0000272<br/>(protocol)"]:::classNode
     SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
     SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
-    NCIT_C70856["obo:NCIT_C70856<br/>(Observation Result)"]:::classNode
-    NCIT_C68615["obo:NCIT_C68615<br/>(Birth Date)"]:::classNode
+    NCIT_C25464["obo:NCIT_C25464<br/>(Country)"]:::classNode
+    NCIT_C20108["obo:NCIT_C20108<br/>(Country Code)"]:::classNode
     SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
+    NCIT_C176764["obo:NCIT_C176764<br/>(Birthplace)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
-    ISO8601["ISO 8601 formatted date"]:::dataValue
+    CountryName["Country name"]:::dataValue
 
-    %% Real edges (indices 0-20)
+    %% Real edges (indices 0-23)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
     ID_ -->|"rdf:type"| SIO_000115
     ID_ -->|"sio:SIO_000020 (denotes)"| Role_
@@ -67,21 +69,26 @@ flowchart TD
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
-    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601
+    Output_ -->|"sio:SIO_000671 (has identifier)"| IRICountryCode
+    Output_ -->|"rdf:type"| NCIT_C25464
     Output_ -->|"rdf:type"| SIO_000015
-    Output_ -->|"rdf:type"| NCIT_C70856
     Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
 
-    Attribute_ -->|"rdf:type"| NCIT_C68615
-    Attribute_ -->|"rdf:type"| SIO_000614
+    IRICountryCode -->|"rdf:type"| SIO_000115
+    IRICountryCode -->|"rdf:type"| NCIT_C20108
+    IRICountryCode -->|"sio:SIO_000300 (has value)"| CountryName
 
-    %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
+    Attribute_ -->|"rdf:type"| SIO_000614
+    Attribute_ -->|"rdf:type"| NCIT_C176764
+
+    %% Invisible layout-only chains (indices 24-32, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
     OBI_0000272 ~~~ SIO_000090
-    ISO8601 ~~~ SIO_000015 ~~~ NCIT_C70856
-    NCIT_C68615 ~~~ SIO_000614
+    NCIT_C25464 ~~~ SIO_000015
+    SIO_000115 ~~~ NCIT_C20108 ~~~ CountryName
+    SIO_000614 ~~~ NCIT_C176764
 
-    linkStyle 21,22,23,24,25,26,27,28 stroke:none
+    linkStyle 24,25,26,27,28,29,30,31,32 stroke:none
 ```

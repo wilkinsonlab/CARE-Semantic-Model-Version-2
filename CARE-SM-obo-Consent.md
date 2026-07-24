@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Birthdate
+# CARE-SM OBO Model — Consent
 
-Mermaid transcription of [`CARE-SM-obo-Birthdate.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Birthdate.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-Consent.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Consent.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -23,9 +23,9 @@ flowchart TD
     Individual_{{Individual_}}:::usedInstance
     Role_{{Role_}}:::usedInstance
     Process_{{Process_}}:::usedInstance
+    URIProtocol{{"URI for the protocol"}}:::usedInstance
     Output_{{Output_}}:::usedInstance
     Attribute_{{Attribute_}}:::usedInstance
-    URIProtocol{{"URI for the protocol"}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -33,18 +33,18 @@ flowchart TD
     OBI_0000093["obo:OBI_0000093<br/>(patient role)"]:::classNode
     SIO_000016["sio:SIO_000016<br/>(role)"]:::classNode
     SIO_000006["sio:SIO_000006<br/>(process)"]:::classNode
-    NCIT_C142470["obo:NCIT_C142470<br/>(Data Capture)"]:::classNode
+    OBI_0000810["obo:OBI_0000810<br/>(Informed consent process)"]:::classNode
     OBI_0000272["obo:OBI_0000272<br/>(protocol)"]:::classNode
     SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
     SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
-    NCIT_C70856["obo:NCIT_C70856<br/>(Observation Result)"]:::classNode
-    NCIT_C68615["obo:NCIT_C68615<br/>(Birth Date)"]:::classNode
+    DUO_0000001["IRI that describes the consent statement, e.g.:<br/>obo:DUO_0000001 (Data Use Permission)<br/>obo:OBIB_0000488 (willingness to be contacted)"]:::classNode
+    NCIT_C25460["obo:NCIT_C25460<br/>(Consent)"]:::classNode
     SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
-    ISO8601["ISO 8601 formatted date"]:::dataValue
+    LexicalConsentStatement["Lexical consent statement"]:::dataValue
 
     %% Real edges (indices 0-20)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
@@ -59,7 +59,7 @@ flowchart TD
     Role_ -->|"sio:SIO_000356 (is realized in)"| Process_
 
     Process_ -->|"rdf:type"| SIO_000006
-    Process_ -->|"rdf:type"| NCIT_C142470
+    Process_ -->|"rdf:type"| OBI_0000810
     Process_ -->|"rdfs:comment"| Comments
     Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
@@ -67,21 +67,21 @@ flowchart TD
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
-    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601
-    Output_ -->|"rdf:type"| SIO_000015
-    Output_ -->|"rdf:type"| NCIT_C70856
     Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
+    Output_ -->|"rdf:type"| SIO_000015
+    Output_ -->|"rdf:type"| DUO_0000001
+    Output_ -->|"sio:SIO_000300 (has value)"| LexicalConsentStatement
 
-    Attribute_ -->|"rdf:type"| NCIT_C68615
+    Attribute_ -->|"rdf:type"| NCIT_C25460
     Attribute_ -->|"rdf:type"| SIO_000614
 
     %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
-    SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
+    SIO_000006 ~~~ OBI_0000810 ~~~ Comments
     OBI_0000272 ~~~ SIO_000090
-    ISO8601 ~~~ SIO_000015 ~~~ NCIT_C70856
-    NCIT_C68615 ~~~ SIO_000614
+    SIO_000015 ~~~ DUO_0000001 ~~~ LexicalConsentStatement
+    NCIT_C25460 ~~~ SIO_000614
 
     linkStyle 21,22,23,24,25,26,27,28 stroke:none
 ```

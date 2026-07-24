@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Birthdate
+# CARE-SM OBO Model — Sex
 
-Mermaid transcription of [`CARE-SM-obo-Birthdate.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Birthdate.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-Sex.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Sex.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -37,14 +37,14 @@ flowchart TD
     OBI_0000272["obo:OBI_0000272<br/>(protocol)"]:::classNode
     SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
     SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
-    NCIT_C70856["obo:NCIT_C70856<br/>(Observation Result)"]:::classNode
-    NCIT_C68615["obo:NCIT_C68615<br/>(Birth Date)"]:::classNode
+    NCIT_C160908["obo:NCIT_C160908<br/>(Sex Code)"]:::classNode
     SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
+    SexOptions["One of the following:<br/>obo:NCIT_C16576 (Female)<br/>obo:NCIT_C20197 (Male)<br/>obo:NCIT_C89084 (Undetermined)<br/>obo:NCIT_C17998 (Unknown)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
-    ISO8601["ISO 8601 formatted date"]:::dataValue
+    SexName["Sex name"]:::dataValue
 
     %% Real edges (indices 0-20)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
@@ -67,21 +67,21 @@ flowchart TD
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
-    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601
+    Output_ -->|"rdf:type"| NCIT_C160908
     Output_ -->|"rdf:type"| SIO_000015
-    Output_ -->|"rdf:type"| NCIT_C70856
+    Output_ -->|"sio:SIO_000300 (has value)"| SexName
     Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
 
-    Attribute_ -->|"rdf:type"| NCIT_C68615
     Attribute_ -->|"rdf:type"| SIO_000614
+    Attribute_ -->|"rdf:type"| SexOptions
 
     %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
     OBI_0000272 ~~~ SIO_000090
-    ISO8601 ~~~ SIO_000015 ~~~ NCIT_C70856
-    NCIT_C68615 ~~~ SIO_000614
+    NCIT_C160908 ~~~ SIO_000015 ~~~ SexName
+    SIO_000614 ~~~ SexOptions
 
     linkStyle 21,22,23,24,25,26,27,28 stroke:none
 ```

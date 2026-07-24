@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Birthdate
+# CARE-SM OBO Model — Questionnaire
 
-Mermaid transcription of [`CARE-SM-obo-Birthdate.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Birthdate.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-Questionnaire.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Questionnaire.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -24,8 +24,8 @@ flowchart TD
     Role_{{Role_}}:::usedInstance
     Process_{{Process_}}:::usedInstance
     Output_{{Output_}}:::usedInstance
-    Attribute_{{Attribute_}}:::usedInstance
-    URIProtocol{{"URI for the protocol"}}:::usedInstance
+    IRIQuestionCode{{"IRI for the question annotation code"}}:::usedInstance
+    URIPROMsCode{{"URI for PROMs annotation code"}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -33,18 +33,17 @@ flowchart TD
     OBI_0000093["obo:OBI_0000093<br/>(patient role)"]:::classNode
     SIO_000016["sio:SIO_000016<br/>(role)"]:::classNode
     SIO_000006["sio:SIO_000006<br/>(process)"]:::classNode
-    NCIT_C142470["obo:NCIT_C142470<br/>(Data Capture)"]:::classNode
-    OBI_0000272["obo:OBI_0000272<br/>(protocol)"]:::classNode
-    SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
+    NCIT_C20993["obo:NCIT_C20993<br/>(Research or Clinical Assessment Tool)"]:::classNode
+    NCIT_C91102["obo:NCIT_C91102<br/>(Clinical or Research Assessment Question)"]:::classNode
     SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
-    NCIT_C70856["obo:NCIT_C70856<br/>(Observation Result)"]:::classNode
-    NCIT_C68615["obo:NCIT_C68615<br/>(Birth Date)"]:::classNode
-    SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
+    SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
+    NCIT_C177377["obo:NCIT_C177377<br/>(Patient Reported Outcome Measures)"]:::classNode
+    NCIT_C49149["obo:NCIT_C49149<br/>(Answer)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
-    ISO8601["ISO 8601 formatted date"]:::dataValue
+    LexicalOutcome["Lexical reported outcome value/score"]:::dataValue
 
     %% Real edges (indices 0-20)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
@@ -59,29 +58,29 @@ flowchart TD
     Role_ -->|"sio:SIO_000356 (is realized in)"| Process_
 
     Process_ -->|"rdf:type"| SIO_000006
-    Process_ -->|"rdf:type"| NCIT_C142470
+    Process_ -->|"rdf:type"| NCIT_C20993
+    Process_ -->|"sio:SIO_000230 (has input)"| IRIQuestionCode
     Process_ -->|"rdfs:comment"| Comments
-    Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
+    Process_ -->|"sio:SIO_000339 (is specified by)"| URIPROMsCode
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
 
-    URIProtocol -->|"rdf:type"| OBI_0000272
-    URIProtocol -->|"rdf:type"| SIO_000090
+    IRIQuestionCode -->|"rdf:type"| NCIT_C91102
+    IRIQuestionCode -->|"rdf:type"| SIO_000015
 
-    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601
+    URIPROMsCode -->|"rdf:type"| SIO_000090
+    URIPROMsCode -->|"rdf:type"| NCIT_C177377
+
+    Output_ -->|"rdf:type"| NCIT_C49149
     Output_ -->|"rdf:type"| SIO_000015
-    Output_ -->|"rdf:type"| NCIT_C70856
-    Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
+    Output_ -->|"sio:SIO_000300 (has value)"| LexicalOutcome
 
-    Attribute_ -->|"rdf:type"| NCIT_C68615
-    Attribute_ -->|"rdf:type"| SIO_000614
-
-    %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 21-27, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
-    SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
-    OBI_0000272 ~~~ SIO_000090
-    ISO8601 ~~~ SIO_000015 ~~~ NCIT_C70856
-    NCIT_C68615 ~~~ SIO_000614
+    SIO_000006 ~~~ NCIT_C20993 ~~~ Comments
+    NCIT_C91102 ~~~ SIO_000015
+    SIO_000090 ~~~ NCIT_C177377
+    NCIT_C49149 ~~~ LexicalOutcome
 
-    linkStyle 21,22,23,24,25,26,27,28 stroke:none
+    linkStyle 21,22,23,24,25,26,27 stroke:none
 ```

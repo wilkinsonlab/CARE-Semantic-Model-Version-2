@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Birthdate
+# CARE-SM OBO Model — Laboratory
 
-Mermaid transcription of [`CARE-SM-obo-Birthdate.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Birthdate.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-Laboratory.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Laboratory.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -23,9 +23,12 @@ flowchart TD
     Individual_{{Individual_}}:::usedInstance
     Role_{{Role_}}:::usedInstance
     Process_{{Process_}}:::usedInstance
-    Output_{{Output_}}:::usedInstance
-    Attribute_{{Attribute_}}:::usedInstance
+    Specific_method_{{Specific_method_}}:::usedInstance
+    Input_{{Input_}}:::usedInstance
+    Target_{{Target_}}:::usedInstance
     URIProtocol{{"URI for the protocol"}}:::usedInstance
+    Output_{{Output_}}:::usedInstance
+    Unit_{{Unit_}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -33,20 +36,23 @@ flowchart TD
     OBI_0000093["obo:OBI_0000093<br/>(patient role)"]:::classNode
     SIO_000016["sio:SIO_000016<br/>(role)"]:::classNode
     SIO_000006["sio:SIO_000006<br/>(process)"]:::classNode
-    NCIT_C142470["obo:NCIT_C142470<br/>(Data Capture)"]:::classNode
+    NCIT_C25294["obo:NCIT_C25294<br/>(Laboratory procedure)"]:::classNode
+    NCIT_C147324["IRI for a specific method, e.g.:<br/>obo:NCIT_C147324<br/>(Creatinine Clearance Adjusted for BSA)"]:::classNode
+    SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
+    NCIT_C17610["IRI for the input sample source, e.g.:<br/>obo:NCIT_C17610<br/>(Blood Sample)"]:::classNode
+    NCIT_C399["IRI for the chemical or<br/>Biomedical Material, e.g.:<br/>obo:NCIT_C399<br/>(Creatinine)"]:::classNode
     OBI_0000272["obo:OBI_0000272<br/>(protocol)"]:::classNode
     SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
-    SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
     NCIT_C70856["obo:NCIT_C70856<br/>(Observation Result)"]:::classNode
-    NCIT_C68615["obo:NCIT_C68615<br/>(Birth Date)"]:::classNode
-    SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
+    SIO_000074["sio:SIO_000074<br/>(unit of measurement)"]:::classNode
+    UO_0000022["IRI for unit of measurement, e.g.:<br/>obo:UO_0000022<br/>(milligram)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
-    ISO8601["ISO 8601 formatted date"]:::dataValue
+    LabMeasurementValue["Laboratory<br/>measurement value"]:::dataValue
 
-    %% Real edges (indices 0-20)
+    %% Real edges (indices 0-29)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
     ID_ -->|"rdf:type"| SIO_000115
     ID_ -->|"sio:SIO_000020 (denotes)"| Role_
@@ -59,29 +65,44 @@ flowchart TD
     Role_ -->|"sio:SIO_000356 (is realized in)"| Process_
 
     Process_ -->|"rdf:type"| SIO_000006
-    Process_ -->|"rdf:type"| NCIT_C142470
+    Process_ -->|"rdf:type"| NCIT_C25294
     Process_ -->|"rdfs:comment"| Comments
+    Process_ -->|"sio:SIO_000028 (has part)"| Specific_method_
+    Process_ -->|"sio:SIO_000230 (has input)"| Input_
+    Process_ -->|"sio:SIO_000291 (has target)"| Target_
     Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
+
+    Specific_method_ -->|"rdf:type"| SIO_000006
+    Specific_method_ -->|"rdf:type"| NCIT_C147324
+
+    Input_ -->|"rdf:type"| SIO_000015
+    Input_ -->|"rdf:type"| NCIT_C17610
+
+    Target_ -->|"rdf:type"| NCIT_C399
+    Target_ -->|"rdf:type"| SIO_000015
 
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
-    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601
+    Output_ -->|"sio:SIO_000221 (has unit)"| Unit_
     Output_ -->|"rdf:type"| SIO_000015
     Output_ -->|"rdf:type"| NCIT_C70856
-    Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
+    Output_ -->|"sio:SIO_000300 (has value)"| LabMeasurementValue
 
-    Attribute_ -->|"rdf:type"| NCIT_C68615
-    Attribute_ -->|"rdf:type"| SIO_000614
+    Unit_ -->|"rdf:type"| SIO_000074
+    Unit_ -->|"rdf:type"| UO_0000022
 
-    %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 30-40, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
-    SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
+    SIO_000006 ~~~ NCIT_C25294 ~~~ Comments
+    SIO_000006 ~~~ NCIT_C147324
+    SIO_000015 ~~~ NCIT_C17610
+    NCIT_C399 ~~~ SIO_000015
     OBI_0000272 ~~~ SIO_000090
-    ISO8601 ~~~ SIO_000015 ~~~ NCIT_C70856
-    NCIT_C68615 ~~~ SIO_000614
+    SIO_000015 ~~~ NCIT_C70856 ~~~ LabMeasurementValue
+    SIO_000074 ~~~ UO_0000022
 
-    linkStyle 21,22,23,24,25,26,27,28 stroke:none
+    linkStyle 30,31,32,33,34,35,36,37,38,39,40 stroke:none
 ```

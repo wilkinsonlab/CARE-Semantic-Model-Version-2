@@ -1,6 +1,6 @@
-# CARE-SM OBO Model — Birthdate
+# CARE-SM OBO Model — First Confirmed Visit
 
-Mermaid transcription of [`CARE-SM-obo-Birthdate.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-Birthdate.drawio.png).
+Mermaid transcription of [`CARE-SM-obo-First_visit.drawio.png`](https://raw.githubusercontent.com/CARE-SM/CARE-Semantic-Model/main/images/obo/CARE-SM-obo-First_visit.drawio.png).
 
 **Legend**
 - `sio:` = http://semanticscience.org/resource/
@@ -38,7 +38,7 @@ flowchart TD
     SIO_000090["sio:SIO_000090<br/>(specification)"]:::classNode
     SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
     NCIT_C70856["obo:NCIT_C70856<br/>(Observation Result)"]:::classNode
-    NCIT_C68615["obo:NCIT_C68615<br/>(Birth Date)"]:::classNode
+    NCIT_C159705["obo:NCIT_C159705<br/>(First Confirmed Visit)"]:::classNode
     SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
 
     %% Data values
@@ -58,21 +58,21 @@ flowchart TD
     Role_ -->|"rdf:type"| SIO_000016
     Role_ -->|"sio:SIO_000356 (is realized in)"| Process_
 
+    Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"rdf:type"| SIO_000006
     Process_ -->|"rdf:type"| NCIT_C142470
     Process_ -->|"rdfs:comment"| Comments
-    Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
 
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
-    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601
-    Output_ -->|"rdf:type"| SIO_000015
-    Output_ -->|"rdf:type"| NCIT_C70856
     Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
+    Output_ -->|"rdf:type"| NCIT_C70856
+    Output_ -->|"rdf:type"| SIO_000015
+    Output_ -->|"sio:SIO_000300 (has value)"| ISO8601
 
-    Attribute_ -->|"rdf:type"| NCIT_C68615
+    Attribute_ -->|"rdf:type"| NCIT_C159705
     Attribute_ -->|"rdf:type"| SIO_000614
 
     %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
@@ -80,8 +80,8 @@ flowchart TD
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
     OBI_0000272 ~~~ SIO_000090
-    ISO8601 ~~~ SIO_000015 ~~~ NCIT_C70856
-    NCIT_C68615 ~~~ SIO_000614
+    NCIT_C70856 ~~~ SIO_000015 ~~~ ISO8601
+    NCIT_C159705 ~~~ SIO_000614
 
     linkStyle 21,22,23,24,25,26,27,28 stroke:none
 ```
