@@ -9,7 +9,8 @@ Mermaid transcription of [`CARE-SM-obo-Questionnaire.drawio.png`](https://raw.gi
 - Rectangle, green border = Class
 - Rectangle, blue border = Data value
 
-Note: "Unused Instance" nodes (grey diamonds) from the source diagram are omitted as uninformative.
+<br/>
+<br/>
 
 ```mermaid
 flowchart TD
