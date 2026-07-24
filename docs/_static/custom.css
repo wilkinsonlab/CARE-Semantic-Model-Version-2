@@ -1,5 +1,9 @@
 .wy-nav-content {
     margin: 0;
+    /* sphinx_rtd_theme defaults to max-width: 800px, which crops the page to
+       a narrow column and makes the wide Mermaid diagrams hard to read.
+       Widen it to use most of the available viewport instead. */
+    max-width: 90%;
 }
 
 /* Fix: sphinx_rtd_theme sidebar sometimes loses its own scrollbar,
