@@ -95,9 +95,22 @@ under grant agreement <strong>No. 825575</strong>.
 </p>
 
 <p align="center">
-  <img src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/ejprd.png?raw=true" alt="EJPRD logo" height="80">
-  <img src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/eu.png?raw=true" alt="EU logo" height="80">
+  <img src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/ejprd.png?raw=true" alt="EJPRD logo" height="50">
+  <img src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/eu.png?raw=true" alt="EU logo" height="50">
 </p>
+
+<p>
+It is now continued as part of the
+<a href="https://erdera.org/">European Rare Disease Research Alliance (ERDERA)</a>,
+which receives funding from the European Union’s <strong>Horizon Europe research and innovation programme</strong>
+under grant agreement <strong>No. 101156595</strong>.
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/wilkinsonlab/CARE-Semantic-Model-Version-2/main/docs/assets/erdera.svg" alt="ERDERA logo" height="50">
+  <img src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/eu.png?raw=true" alt="EU logo" height="50">
+</p>
+
 <p>
 
 After the end of the EJP RD project, this work has been led and maintained by researchers from the
@@ -107,5 +120,5 @@ at <strong>Universidad Politécnica de Madrid</strong>.
 
 <p>
 <p align="center">
-  <img src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/UPM.png?raw=true" alt="EU logo" width="200">
+  <img src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/UPM.png?raw=true" alt="EU logo" width="130">
 </p>
