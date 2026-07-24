@@ -15,3 +15,19 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
+
+/* sphinx_rtd_theme forces `.wy-nav-content img { height: auto !important; }`,
+   which overrides plain HTML height="" attributes on acknowledgement logos.
+   These classes win on specificity + !important so the logos stay small. */
+.wy-nav-content img.ack-logo {
+    height: 50px !important;
+    width: auto !important;
+    max-width: none;
+    margin: 0 10px;
+}
+
+.wy-nav-content img.ack-logo-wide {
+    width: 130px !important;
+    height: auto !important;
+    max-width: none;
+}
