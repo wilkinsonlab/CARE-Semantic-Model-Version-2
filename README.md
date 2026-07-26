@@ -2,6 +2,7 @@
 
 
 [![Documentation Status](https://readthedocs.org/projects/care-sm-semantic-model-v2/badge/?version=latest)](https://care-sm-semantic-model-v2.readthedocs.io/en/latest/?badge=latest)
+![GitHub tag](https://img.shields.io/github/v/tag/wilkinsonlab/CARE-Semantic-Model-Version-2)
 [![License](https://img.shields.io/github/license/wilkinsonlab/CARE-Semantic-Model-Version-2)](LICENSE)
 [![Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-contributor%20covenant-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
