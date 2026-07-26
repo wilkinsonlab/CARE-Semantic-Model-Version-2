@@ -15,9 +15,9 @@ Mermaid transcription of [`CARE-SM-obo-Birthplace.drawio.png`](https://raw.githu
 <!-- mermaid-start -->
 ```mermaid
 flowchart TD
-    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
-    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:11px
-    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333
+    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333,font-size:20px
+    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:14px
+    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333,font-size:18px
     linkStyle default stroke:#555,stroke-width:5px
 
     %% Instances
@@ -28,7 +28,7 @@ flowchart TD
     Output_{{Output_}}:::usedInstance
     Attribute_{{Attribute_}}:::usedInstance
     URIProtocol{{"URI for the protocol"}}:::usedInstance
-    IRICountryCode{{"IRI for country code"}}:::usedInstance
+    Identifier_{{Identifier_}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -49,8 +49,9 @@ flowchart TD
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
     CountryName["Country name"]:::dataValue
+    CountryCodeValue["Country code, as a string"]:::dataValue
 
-    %% Real edges (indices 0-23)
+    %% Real edges (indices 0-24)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
     ID_ -->|"rdf:type"| SIO_000115
     ID_ -->|"sio:SIO_000020 (denotes)"| Role_
@@ -71,29 +72,32 @@ flowchart TD
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
 
-    Output_ -->|"sio:SIO_000671 (has identifier)"| IRICountryCode
+    Output_ -->|"sio:SIO_000671 (has identifier)"| Identifier_
     Output_ -->|"rdf:type"| NCIT_C25464
     Output_ -->|"rdf:type"| SIO_000015
     Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
 
-    IRICountryCode -->|"rdf:type"| SIO_000115
-    IRICountryCode -->|"rdf:type"| NCIT_C20108
-    IRICountryCode -->|"sio:SIO_000300 (has value)"| CountryName
+    Identifier_ -->|"rdf:type"| SIO_000115
+    Identifier_ -->|"rdf:type"| NCIT_C20108
+    Identifier_ -->|"sio:SIO_000300 (has value)"| CountryCodeValue
+    Identifier_ -->|"rdfs:label"| CountryName
 
     Attribute_ -->|"rdf:type"| SIO_000614
     Attribute_ -->|"rdf:type"| NCIT_C176764
 
-    %% Invisible layout-only chains (indices 24-32, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 25-36, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
     OBI_0000272 ~~~ SIO_000090
     NCIT_C25464 ~~~ SIO_000015
-    SIO_000115 ~~~ NCIT_C20108 ~~~ CountryName
+    SIO_000115 ~~~ NCIT_C20108 ~~~ CountryCodeValue ~~~ CountryName
     SIO_000614 ~~~ NCIT_C176764
 
-    %% rdf:type edges (indices 1,3,5,6,8,9,13,14,16,17,19,20,22,23) de-emphasized so the structural backbone stands out
-    linkStyle 1,3,5,6,8,9,13,14,16,17,19,20,22,23 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 24,25,26,27,28,29,30,31,32 stroke:none
+    URIProtocol ~~~ Output_
+    Identifier_ ~~~ Attribute_
+    %% rdf:type edges (indices 1,3,5,6,8,9,13,14,16,17,19,20,23,24) de-emphasized so the structural backbone stands out
+    linkStyle 1,3,5,6,8,9,13,14,16,17,19,20,23,24 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
+    linkStyle 25,26,27,28,29,30,31,32,33,34,35,36 stroke:none
 ```
 <!-- mermaid-end -->

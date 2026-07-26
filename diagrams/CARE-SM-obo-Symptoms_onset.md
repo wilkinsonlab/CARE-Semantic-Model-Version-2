@@ -15,9 +15,9 @@ Mermaid transcription of [`CARE-SM-obo-Symptoms_onset.drawio.png`](https://raw.g
 <!-- mermaid-start -->
 ```mermaid
 flowchart TD
-    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
-    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:11px
-    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333
+    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333,font-size:20px
+    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:14px
+    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333,font-size:18px
     linkStyle default stroke:#555,stroke-width:5px
 
     %% Instances
@@ -28,7 +28,7 @@ flowchart TD
     Output_{{Output_}}:::usedInstance
     Attribute_{{Attribute_}}:::usedInstance
     URIProtocol{{"URI for the protocol"}}:::usedInstance
-    IRISymptomCode{{"IRI for a particular symptom code"}}:::usedInstance
+    Target_{{Target_}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -62,15 +62,15 @@ flowchart TD
     Role_ -->|"rdf:type"| SIO_000016
     Role_ -->|"sio:SIO_000356 (is realized in)"| Process_
 
-    Process_ -->|"sio:SIO_000291 (has target)"| IRISymptomCode
+    Process_ -->|"sio:SIO_000291 (has target)"| Target_
     Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"rdf:type"| SIO_000006
     Process_ -->|"rdf:type"| NCIT_C142470
     Process_ -->|"rdfs:comment"| Comments
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
 
-    IRISymptomCode -->|"rdf:type"| NCIT_C4876
-    IRISymptomCode -->|"rdf:type"| SIO_000015
+    Target_ -->|"rdf:type"| NCIT_C4876
+    Target_ -->|"rdf:type"| SIO_000015
 
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
@@ -83,7 +83,7 @@ flowchart TD
     Attribute_ -->|"rdf:type"| NCIT_C124353
     Attribute_ -->|"rdf:type"| SIO_000614
 
-    %% Invisible layout-only chains (indices 24-32, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 24-34, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
@@ -92,8 +92,9 @@ flowchart TD
     NCIT_C70856 ~~~ SIO_000015 ~~~ ISO8601OrAgeOnset
     NCIT_C124353 ~~~ SIO_000614
 
+    Target_ ~~~ URIProtocol ~~~ Output_
     %% rdf:type edges (indices 1,3,5,6,10,11,14,15,16,17,19,20,22,23) de-emphasized so the structural backbone stands out
     linkStyle 1,3,5,6,10,11,14,15,16,17,19,20,22,23 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 24,25,26,27,28,29,30,31,32 stroke:none
+    linkStyle 24,25,26,27,28,29,30,31,32,33,34 stroke:none
 ```
 <!-- mermaid-end -->

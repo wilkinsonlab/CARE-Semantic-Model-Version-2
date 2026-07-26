@@ -79,6 +79,7 @@ The metadata layer is implemented using named graphs, encapsulating each complet
   - <a href="data_elements.html#examination">Examination</a>
   - <a href="data_elements.html#laboratory-measurement">Laboratory</a>
   - <a href="data_elements.html#genetic-testing">Genetic</a>
+  - <a href="data_elements.html#functional_assessment">Functional Assessment</a>
 
 - **Treatments and interventions:**
   - <a href="data_elements.html#medication">Medication</a>
@@ -87,7 +88,6 @@ The metadata layer is implemented using named graphs, encapsulating each complet
 
 - **Patient-reported outcomes:**
   - <a href="data_elements.html#questionnaire">Questionnaire</a>
-  - <a href="data_elements.html#disability">Disability</a>
 
 - **Research samples:**
   - <a href="data_elements.html#biobank">Biobank</a>

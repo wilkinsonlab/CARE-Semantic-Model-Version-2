@@ -15,9 +15,9 @@ Mermaid transcription of [`CARE-SM-obo-Biobank.drawio.png`](https://raw.githubus
 <!-- mermaid-start -->
 ```mermaid
 flowchart TD
-    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
-    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:11px
-    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333
+    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333,font-size:20px
+    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:14px
+    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333,font-size:18px
     linkStyle default stroke:#555,stroke-width:5px
 
     %% Instances
@@ -82,7 +82,7 @@ flowchart TD
     Output_identifier_ -->|"rdf:type"| NCIT_C25402
     Output_identifier_ -->|"sio:SIO_000300 (has value)"| SampleAccessionIdentifier
 
-    %% Invisible layout-only chains (indices 24-30, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 24-32, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ OBIB_0000668 ~~~ Comments
@@ -90,8 +90,9 @@ flowchart TD
     OBI_0000272 ~~~ SIO_000090
     NCIT_C25402 ~~~ SampleAccessionIdentifier
 
+    Input_ ~~~ URIProtocol ~~~ Output_
     %% rdf:type edges (indices 1,3,5,6,8,9,14,15,16,17,18,19,21,22) de-emphasized so the structural backbone stands out
     linkStyle 1,3,5,6,8,9,14,15,16,17,18,19,21,22 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 24,25,26,27,28,29,30 stroke:none
+    linkStyle 24,25,26,27,28,29,30,31,32 stroke:none
 ```
 <!-- mermaid-end -->

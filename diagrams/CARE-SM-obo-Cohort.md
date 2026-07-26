@@ -15,9 +15,9 @@ Mermaid transcription of [`CARE-SM-obo-Cohort.drawio.png`](https://raw.githubuse
 <!-- mermaid-start -->
 ```mermaid
 flowchart TD
-    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
-    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:11px
-    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333
+    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333,font-size:20px
+    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:14px
+    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333,font-size:18px
     linkStyle default stroke:#555,stroke-width:5px
 
     %% Instances
@@ -25,7 +25,7 @@ flowchart TD
     Individual_{{Individual_}}:::usedInstance
     Role_{{Role_}}:::usedInstance
     Process_{{Process_}}:::usedInstance
-    IRIGeneticDisease{{"IRI for the genetic or disease annotation studied"}}:::usedInstance
+    Target_{{Target_}}:::usedInstance
     URIProtocol{{"URI for the protocol"}}:::usedInstance
     Output_{{Output_}}:::usedInstance
     Output_identifier_{{Output_identifier_}}:::usedInstance
@@ -65,12 +65,12 @@ flowchart TD
     Process_ -->|"rdf:type"| SIO_000006
     Process_ -->|"rdf:type"| NCIT_C15208
     Process_ -->|"rdfs:comment"| Comments
-    Process_ -->|"sio:SIO_000291 (has target)"| IRIGeneticDisease
+    Process_ -->|"sio:SIO_000291 (has target)"| Target_
     Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
 
-    IRIGeneticDisease -->|"rdf:type"| SIO_000614
-    IRIGeneticDisease -->|"rdf:type"| NCIT_C7057
+    Target_ -->|"rdf:type"| SIO_000614
+    Target_ -->|"rdf:type"| NCIT_C7057
 
     URIProtocol -->|"rdf:type"| OBI_0000272
     URIProtocol -->|"rdf:type"| SIO_000090
@@ -83,7 +83,7 @@ flowchart TD
     Output_identifier_ -->|"rdf:type"| NCIT_C83082
     Output_identifier_ -->|"sio:SIO_000300 (has value)"| ReportStudyIdentifier
 
-    %% Invisible layout-only chains (indices 24-30, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 24-32, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000097 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C15208 ~~~ Comments
@@ -91,8 +91,9 @@ flowchart TD
     OBI_0000272 ~~~ SIO_000090
     NCIT_C83082 ~~~ ReportStudyIdentifier
 
+    Target_ ~~~ URIProtocol ~~~ Output_
     %% rdf:type edges (indices 1,3,5,6,8,9,14,15,16,17,18,19,21,22) de-emphasized so the structural backbone stands out
     linkStyle 1,3,5,6,8,9,14,15,16,17,18,19,21,22 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 24,25,26,27,28,29,30 stroke:none
+    linkStyle 24,25,26,27,28,29,30,31,32 stroke:none
 ```
 <!-- mermaid-end -->

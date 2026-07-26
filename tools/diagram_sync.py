@@ -39,9 +39,15 @@ MODEL_ORDER = [
     "Birthdate", "Birthyear", "Birthplace", "Deathdate", "Sex",
     "First_visit", "Status", "Symptoms_onset", "Phenotype", "Diagnosis",
     "Examination", "Laboratory", "Genetic", "Medication", "Hospitalization",
-    "Surgery", "Questionnaire", "Disability", "Biobank", "Consent",
+    "Surgery", "Questionnaire", "Functional_Assessment", "Biobank", "Consent",
     "Clinical_trial", "Cohort",
 ]
+# NOTE: "Functional_Assessment" was renamed from "Disability" on the diagram
+# side only (docs/glossary.md and the installed toolkit's TEMPLATE_MAP_OBO
+# still use the old "Disability" key/section) -- kept at the same position in
+# this list so the positional glossary-section zip still lines up correctly.
+# Expect full drift on this model in both toolkit and glossary comparisons
+# until that rename propagates downstream.
 
 # Property connecting a used-instance node to its parent hub is stable
 # across diagrams even when the node's own label is model-specific

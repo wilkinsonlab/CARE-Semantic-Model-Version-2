@@ -15,9 +15,9 @@ Mermaid transcription of [`CARE-SM-obo-Medication.drawio.png`](https://raw.githu
 <!-- mermaid-start -->
 ```mermaid
 flowchart TD
-    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
-    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:11px
-    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333
+    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333,font-size:20px
+    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:14px
+    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333,font-size:18px
     linkStyle default stroke:#555,stroke-width:5px
 
     %% Instances
@@ -26,9 +26,9 @@ flowchart TD
     Role_{{Role_}}:::usedInstance
     Process_{{Process_}}:::usedInstance
     Specific_method_{{Specific_method_}}:::usedInstance
-    URIDrugIdentifier{{"URI for drug identifier"}}:::usedInstance
+    Input_{{Input_}}:::usedInstance
     Frequency_{{Frequency_}}:::usedInstance
-    URITreatmentPlan{{"URI for the treatment plan"}}:::usedInstance
+    URIProtocol{{"URI for the protocol"}}:::usedInstance
     Output_{{Output_}}:::usedInstance
     Unit_{{Unit_}}:::usedInstance
 
@@ -71,24 +71,24 @@ flowchart TD
     Process_ -->|"rdf:type"| SIO_000006
     Process_ -->|"rdf:type"| NCIT_C70962
     Process_ -->|"sio:SIO_000028 (has part)"| Specific_method_
-    Process_ -->|"sio:SIO_000230 (has input)"| URIDrugIdentifier
+    Process_ -->|"sio:SIO_000230 (has input)"| Input_
     Process_ -->|"sio:SIO_000900 (has frequency)"| Frequency_
-    Process_ -->|"sio:SIO_000339 (is specified by)"| URITreatmentPlan
+    Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"rdfs:comment"| Comments
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
 
     Specific_method_ -->|"rdf:type"| NCIT_C28161
     Specific_method_ -->|"rdf:type"| SIO_000006
 
-    URIDrugIdentifier -->|"rdf:type"| SIO_000015
-    URIDrugIdentifier -->|"rdf:type"| NCIT_C177929
+    Input_ -->|"rdf:type"| SIO_000015
+    Input_ -->|"rdf:type"| NCIT_C177929
 
     Frequency_ -->|"rdf:type"| SIO_001367
     Frequency_ -->|"rdf:type"| NCIT_C66968
     Frequency_ -->|"sio:SIO_000300 (has value)"| FrequencyValue
 
-    URITreatmentPlan -->|"rdf:type"| SIO_000090
-    URITreatmentPlan -->|"rdf:type"| IAO_0000104
+    URIProtocol -->|"rdf:type"| SIO_000090
+    URIProtocol -->|"rdf:type"| IAO_0000104
 
     Output_ -->|"sio:SIO_000221 (has unit)"| Unit_
     Output_ -->|"rdf:type"| SIO_000015
@@ -98,7 +98,7 @@ flowchart TD
     Unit_ -->|"rdf:type"| UO_0000022
     Unit_ -->|"rdf:type"| SIO_000074
 
-    %% Invisible layout-only chains (indices 31-40, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 31-44, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C70962 ~~~ Comments
@@ -108,8 +108,9 @@ flowchart TD
     DoseClasses ~~~ DoseValue
     UO_0000022 ~~~ SIO_000074
 
+    Specific_method_ ~~~ Input_ ~~~ Frequency_ ~~~ URIProtocol ~~~ Output_
     %% rdf:type edges (indices 1,3,5,6,8,9,16,17,18,19,20,21,23,24,26,27,29,30) de-emphasized so the structural backbone stands out
     linkStyle 1,3,5,6,8,9,16,17,18,19,20,21,23,24,26,27,29,30 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 31,32,33,34,35,36,37,38,39,40 stroke:none
+    linkStyle 31,32,33,34,35,36,37,38,39,40,41,42,43,44 stroke:none
 ```
 <!-- mermaid-end -->

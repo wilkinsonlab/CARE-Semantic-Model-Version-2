@@ -15,9 +15,9 @@ Mermaid transcription of [`CARE-SM-obo-Examination.drawio.png`](https://raw.gith
 <!-- mermaid-start -->
 ```mermaid
 flowchart TD
-    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
-    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:11px
-    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333
+    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333,font-size:20px
+    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:14px
+    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333,font-size:18px
     linkStyle default stroke:#555,stroke-width:5px
 
     %% Instances
@@ -96,7 +96,7 @@ flowchart TD
     Unit_ -->|"rdf:type"| UnitMeasurementIRI
     Unit_ -->|"rdf:type"| SIO_000074
 
-    %% Invisible layout-only chains (indices 30-40, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 30-44, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ MAXO_0000487 ~~~ Comments
@@ -107,8 +107,10 @@ flowchart TD
     AnnotationCodeIRI ~~~ SIO_000614
     UnitMeasurementIRI ~~~ SIO_000074
 
+    Specific_method_ ~~~ Target_ ~~~ URIProtocol ~~~ Output_
+    Attribute_ ~~~ Unit_
     %% rdf:type edges (indices 1,3,5,6,8,9,15,16,17,18,19,20,23,24,26,27,28,29) de-emphasized so the structural backbone stands out
     linkStyle 1,3,5,6,8,9,15,16,17,18,19,20,23,24,26,27,28,29 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 30,31,32,33,34,35,36,37,38,39,40 stroke:none
+    linkStyle 30,31,32,33,34,35,36,37,38,39,40,41,42,43,44 stroke:none
 ```
 <!-- mermaid-end -->

@@ -9,15 +9,17 @@ Mermaid transcription of [`CARE-SM-obo-Genetic.drawio.png`](https://raw.githubus
 - Rectangle, green border = Class
 - Rectangle, blue border = Data value
 
+**Note on `Output_` vs `Attribute_`:** a single sequence variant report (`Output_`, typed `obo:NCIT_C171178`) can describe *multiple* distinct variants, so `Output_` itself carries no identifying content — it's just the report container. Each individual variant is its own `Attribute_` instance, reached via a separate `Output_ --refers to--> Attribute_` edge (this edge can and should repeat, once per variant). Zygosity and the variant's own identifying notation both belong to *that specific variant*, not to the report as a whole, so both live on `Attribute_`: its `rdf:type` gives the zygosity (`GENO_0000133` and children), and its `has identifier` edge points to an `Identifier_` bnode carrying the variant's lexical notation (e.g. HGVS) as a literal value. A report with three variants is modeled as one `Output_` with three separate `Attribute_`/`Identifier_` pairs hanging off it, not one `Output_` trying to hold three identifiers at once.
+
 <br/>
 <br/>
 
 <!-- mermaid-start -->
 ```mermaid
 flowchart TD
-    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
-    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:11px
-    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333
+    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333,font-size:20px
+    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:14px
+    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333,font-size:18px
     linkStyle default stroke:#555,stroke-width:5px
 
     %% Instances
@@ -30,7 +32,7 @@ flowchart TD
     URIProtocol{{"URI for the protocol"}}:::usedInstance
     Output_{{Output_}}:::usedInstance
     Attribute_{{Attribute_}}:::usedInstance
-    GeneticIdentifierURI{{"URI for genetic identifier"}}:::usedInstance
+    Identifier_{{Identifier_}}:::usedInstance
 
     %% Classes
     SIO_000115["sio:SIO_000115<br/>(identifier)"]:::classNode
@@ -84,18 +86,18 @@ flowchart TD
     URIProtocol -->|"rdf:type"| SIO_000090
 
     Output_ -->|"sio:SIO_000628 (refers to)"| Attribute_
-    Output_ -->|"sio:SIO_000671 (has identifier)"| GeneticIdentifierURI
     Output_ -->|"rdf:type"| SIO_000015
     Output_ -->|"rdf:type"| NCIT_C171178
 
-    GeneticIdentifierURI -->|"rdf:type"| SIO_000115
-    GeneticIdentifierURI -->|"sio:SIO_000300 (has value)"| LexicalSequenceVariant
-    GeneticIdentifierURI -->|"rdf:type"| NCIT_C164607
-
     Attribute_ -->|"rdf:type"| SIO_000614
     Attribute_ -->|"rdf:type"| GENO_0000133
+    Attribute_ -->|"sio:SIO_000671 (has identifier)"| Identifier_
 
-    %% Invisible layout-only chains (indices 30-40, hidden below) force siblings into one column
+    Identifier_ -->|"rdf:type"| SIO_000115
+    Identifier_ -->|"sio:SIO_000300 (has value)"| LexicalSequenceVariant
+    Identifier_ -->|"rdf:type"| NCIT_C164607
+
+    %% Invisible layout-only chains (indices 30-43, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C15709 ~~~ Comments
@@ -103,11 +105,12 @@ flowchart TD
     NCIT_C17610 ~~~ SIO_000015
     OBI_0000272 ~~~ SIO_000090
     SIO_000015 ~~~ NCIT_C171178
-    SIO_000115 ~~~ LexicalSequenceVariant ~~~ NCIT_C164607
     SIO_000614 ~~~ GENO_0000133
+    SIO_000115 ~~~ LexicalSequenceVariant ~~~ NCIT_C164607
 
-    %% rdf:type edges (indices 1,3,5,6,8,9,15,16,17,18,19,20,23,24,25,27,28,29) de-emphasized so the structural backbone stands out
-    linkStyle 1,3,5,6,8,9,15,16,17,18,19,20,23,24,25,27,28,29 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 30,31,32,33,34,35,36,37,38,39,40 stroke:none
+    Specific_method_ ~~~ Input_ ~~~ URIProtocol ~~~ Output_
+    %% rdf:type edges (indices 1,3,5,6,8,9,15,16,17,18,19,20,22,23,24,25,27,29) de-emphasized so the structural backbone stands out
+    linkStyle 1,3,5,6,8,9,15,16,17,18,19,20,22,23,24,25,27,29 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
+    linkStyle 30,31,32,33,34,35,36,37,38,39,40,41,42,43 stroke:none
 ```
 <!-- mermaid-end -->

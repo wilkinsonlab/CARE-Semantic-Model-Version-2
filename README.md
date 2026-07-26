@@ -1,6 +1,6 @@
 # Clinical And Registry Entries (CARE) Semantic Model — Version 2
 
-![GitHub tag](https://img.shields.io/github/v/tag/wilkinsonlab/CARE-Semantic-Model-Version-2)
+
 [![Documentation Status](https://readthedocs.org/projects/care-sm-semantic-model-v2/badge/?version=latest)](https://care-sm-semantic-model-v2.readthedocs.io/en/latest/?badge=latest)
 [![License](https://img.shields.io/github/license/wilkinsonlab/CARE-Semantic-Model-Version-2)](LICENSE)
 [![Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-contributor%20covenant-4baaaa.svg)](CODE_OF_CONDUCT.md)
@@ -30,6 +30,27 @@ Building on that foundation, this version aims to:
 - **Adapt the models to handle real-world use-cases** that could not be represented in the original CARE-SM. For example, the original model had no way to represent a *negative* observation — e.g. a phenotype test whose result is "false" — even though that absence-of-finding is itself an important, recordable fact.
 
 **This work is under active construction.** Models, structures, and documentation here may change as the harmonization effort progresses. We welcome feedback, questions, and suggestions — see [Communication and Feedback](#communication-and-feedback) below.
+
+---
+
+## Migrating from v1
+
+If you're migrating existing data or tooling from the original CARE-SM, here's what changed. Full details, including *why* each change was made, are on the [Migrating from CARE-SM v1](https://care-sm-semantic-model-v2.readthedocs.io/en/latest/migration.html) page on ReadTheDocs — this is a condensed summary.
+
+**The most important thing to know:** the `Attribute_` node (`Output_ --refers to--> Attribute_`) no longer means one single thing everywhere. It now has three different cardinalities depending on the model — unconditional (same as v1, most models), conditional (Phenotype, Diagnosis — only asserted when the result is `true`, which is also how negative findings became representable for the first time), and multi-valued/repeating (Genetic — one per sequence variant, instead of a single identifier per report). See the RTD page for the full table of which models use which behavior.
+
+| Model | Summary of change |
+| --- | --- |
+| Phenotype | Negative-observation support, duration fix, identifier-bnode fix |
+| Diagnosis | Same three fixes as Phenotype; new (currently unpopulated) evidentiary-provenance placeholder |
+| Disability → **Functional Assessment** (renamed) | Recategorized; instrument identity split from administration protocol; optional output label |
+| Genetic | Identifier moved onto `Attribute_` — a report can now describe multiple variants |
+| Birthplace | Identifier-bnode fix |
+| Consent | New optional consent-form reference (filename + version, not a URL) |
+| Hospitalization, Surgery | Added a missing output/date branch — v1 couldn't record dates for these at all |
+| Clinical_trial, Cohort, Medication, Deathdate, Questionnaire, Symptoms_onset | Node renamed for consistency only — no RDF change |
+
+None of this has propagated to the CARE-SM Toolkit, YARRRML, or CSV templates yet — see the RTD page's "Not yet migrated" section.
 
 ---
 ## Full Documentation

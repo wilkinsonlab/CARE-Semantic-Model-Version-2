@@ -5,6 +5,7 @@
 :caption: Getting Started
 
 introduction
+migration
 ```
 
 ```{toctree}

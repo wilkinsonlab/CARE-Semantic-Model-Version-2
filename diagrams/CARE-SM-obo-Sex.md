@@ -15,9 +15,9 @@ Mermaid transcription of [`CARE-SM-obo-Sex.drawio.png`](https://raw.githubuserco
 <!-- mermaid-start -->
 ```mermaid
 flowchart TD
-    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333
-    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:11px
-    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333
+    classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333,font-size:20px
+    classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:14px
+    classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333,font-size:18px
     linkStyle default stroke:#555,stroke-width:5px
 
     %% Instances
@@ -77,7 +77,7 @@ flowchart TD
     Attribute_ -->|"rdf:type"| SIO_000614
     Attribute_ -->|"rdf:type"| SexOptions
 
-    %% Invisible layout-only chains (indices 21-28, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 21-29, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C142470 ~~~ Comments
@@ -85,8 +85,9 @@ flowchart TD
     NCIT_C160908 ~~~ SIO_000015 ~~~ SexName
     SIO_000614 ~~~ SexOptions
 
+    URIProtocol ~~~ Output_
     %% rdf:type edges (indices 1,3,5,6,8,9,13,14,15,16,19,20) de-emphasized so the structural backbone stands out
     linkStyle 1,3,5,6,8,9,13,14,15,16,19,20 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 21,22,23,24,25,26,27,28 stroke:none
+    linkStyle 21,22,23,24,25,26,27,28,29 stroke:none
 ```
 <!-- mermaid-end -->
