@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  api:
+    image: markw/care-sm-toolkit:2.0.0
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      # /data matches the convention used by Sextans Fix's production
+      # docker-compose (and the downstream yarrrml-rdfizer, which expects
+      # the same host folder at /mnt/data) -- see docs/toolkit.md.
+      - ./toolkit/data/obo:/data

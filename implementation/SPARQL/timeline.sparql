@@ -1,0 +1,31 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX sio: <http://semanticscience.org/resource/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?patient_id (GROUP_CONCAT(?record_with_date; separator="\n") AS ?timeline_records)
+WHERE {
+  {
+    SELECT ?patient_id (CONCAT("Record: ", STR(?record_label), ", ", STR(?value_startdate)) AS ?record_with_date)
+    WHERE {
+      ?record a sio:SIO_001027, ?caresm_type ;
+              rdfs:label ?record_label ;
+              sio:SIO_000680 ?startdate ;
+              sio:SIO_000681 ?enddate ;
+              sio:SIO_000300 ?record_id ;
+              sio:SIO_000068 ?medical_history.
+
+      ?medical_history a sio:SIO_010673 ; sio:SIO_000332 ?person_timeline .
+      ?person_timeline a sio:SIO_000498 ; sio:SIO_000671 ?person_identifier .
+      ?person_identifier a sio:SIO_000115 ; sio:SIO_000300 ?patient_id .
+
+      ?startdate a sio:SIO_000031 .
+      ?enddate a sio:SIO_000032 .
+      ?startdate sio:SIO_000300 ?value_startdate .
+      ?enddate sio:SIO_000300 ?value_enddate .
+    }
+    ORDER BY ?patient_id ?value_startdate
+  }
+}
+GROUP BY ?patient_id
+ORDER BY ?patient_id

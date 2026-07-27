@@ -1,0 +1,5 @@
+model,pid,startdate,enddate,event_id,target,value,value_datatype,duration_value,duration_startdate,duration_enddate
+Phenotype,50012001,1993-12-25,1993-12-25,6485754522,http://purl.obolibrary.org/obo/HP_0040300,true,xsd:boolean,P10Y,1986-09-10,1996-09-10
+Phenotype,50012001,1993-12-25,1993-12-25,6485754522,http://purl.obolibrary.org/obo/HP_0003131,true,xsd:boolean,,,
+Phenotype,50012002,2003-02-04,2003-02-04,6485754523,http://purl.obolibrary.org/obo/HP_0000790,true,xsd:boolean,,,
+Phenotype,50012002,2003-02-04,2003-02-04,6485754523,http://purl.obolibrary.org/obo/HP_0002633,false,xsd:boolean,,,

@@ -1,0 +1,133 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX sio: <http://semanticscience.org/resource/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ordo: <http://www.orpha.net/ORDO/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?patient_id ?value_startdate ?record_label ?value ?attribute_type
+				#?output_identifier ?output_identifier_value
+				#?target_type ?specific_method_type ?frequency_value
+				#?event_id ?startdate ?caresm_type
+WHERE {
+  GRAPH ?record {
+
+    ##################### Core model #######################
+
+    ?person sio:SIO_000228 ?role .
+    ?id sio:SIO_000020 ?role ; sio:SIO_000300 ?patient_id .
+    ?role a sio:SIO_000016 ; sio:SIO_000356 ?process .
+    ?process a sio:SIO_000006, ?process_type ;
+               sio:SIO_000229 ?output .
+    FILTER(?process_type != sio:SIO_000006)
+
+    ##################### Process participants (all model-specific / optional) #######################
+
+    OPTIONAL {
+      ?process sio:SIO_000230 ?input .
+      ?input a sio:SIO_000015 .
+      OPTIONAL { ?input a ?input_type . FILTER(?input_type != sio:SIO_000015) }
+    }
+
+    OPTIONAL {
+      ?process sio:SIO_000291 ?target .
+      ?target a sio:SIO_000015 .
+      OPTIONAL { ?target a ?target_type . FILTER(?target_type != sio:SIO_000015) }
+    }
+
+    OPTIONAL {
+      ?process sio:SIO_000900 ?frequency .
+      ?frequency a sio:SIO_001367 .
+      OPTIONAL { ?frequency a ?frequency_type . FILTER(?frequency_type != sio:SIO_001367) }
+      OPTIONAL { ?frequency sio:SIO_000300 ?frequency_value }
+    }
+
+    OPTIONAL {
+      ?process sio:SIO_000339 ?protocol .
+      ?protocol a sio:SIO_000090 .
+      OPTIONAL { ?protocol a ?protocol_type . FILTER(?protocol_type != sio:SIO_000090) }
+    }
+
+    OPTIONAL {
+      ?process sio:SIO_000028 ?specific_method .
+      ?specific_method a sio:SIO_000006 .
+      OPTIONAL { ?specific_method a ?specific_method_type . FILTER(?specific_method_type != sio:SIO_000006) }
+    }
+
+    OPTIONAL { ?process rdfs:comment ?comments }
+
+    ##################### Output participants (all model-specific / optional) #######################
+
+    ?output a sio:SIO_000015 .
+    OPTIONAL { ?output a ?output_type . FILTER(?output_type != sio:SIO_000015) }
+    OPTIONAL { ?output sio:SIO_000300 ?value }
+
+    # refers to Attribute_ -- present only when this model has an attribute
+    # to report, and (for Phenotype/Diagnosis specifically) only when the
+    # observed result is affirmative. Never present otherwise.
+    OPTIONAL {
+      ?output sio:SIO_000628 ?attribute .
+      ?attribute a sio:SIO_000614 .
+      OPTIONAL { ?attribute a ?attribute_type . FILTER(?attribute_type != sio:SIO_000614) }
+      OPTIONAL { ?attribute sio:SIO_000300 ?duration_value }
+      OPTIONAL {
+        ?attribute sio:SIO_000680 ?duration_startdate ; sio:SIO_000681 ?duration_enddate .
+        ?duration_startdate a sio:SIO_000031 .
+        ?duration_enddate a sio:SIO_000032 .
+        OPTIONAL { ?duration_startdate sio:SIO_000300 ?duration_value_startdate }
+        OPTIONAL { ?duration_enddate sio:SIO_000300 ?duration_value_enddate }
+      }
+    }
+
+    # has identifier -- only models with an Output_/Attribute_ identifier branch
+    OPTIONAL {
+      ?output sio:SIO_000671 ?output_identifier .
+      ?output_identifier a sio:SIO_000115 .
+      OPTIONAL { ?output_identifier a ?output_identifier_type . FILTER(?output_identifier_type != sio:SIO_000115) }
+      OPTIONAL { ?output_identifier sio:SIO_000300 ?output_identifier_value }
+    }
+
+    # is causally related with -- Deathdate only
+    OPTIONAL {
+      ?output sio:SIO_000243 ?cause .
+      ?cause a sio:SIO_000015 .
+      OPTIONAL { ?cause a ?cause_type . FILTER(?cause_type != sio:SIO_000015) }
+    }
+
+    # has unit -- only models with a measurement unit
+    OPTIONAL {
+      ?output sio:SIO_000221 ?unit .
+      ?unit a sio:SIO_000074 .
+      OPTIONAL { ?unit a ?unit_type . FILTER(?unit_type != sio:SIO_000074) }
+      OPTIONAL { ?unit sio:SIO_000300 ?unit_value }
+    }
+
+  }
+    ##################### Medical history #######################
+
+  ?record a sio:SIO_001027, ?caresm_type ;
+          rdfs:label ?record_label ;
+          sio:SIO_000680 ?startdate ;
+          sio:SIO_000681 ?enddate ;
+          sio:SIO_000687 ?age ;
+          sio:SIO_000300 ?record_id ;
+          sio:SIO_000253 ?organisation;
+          sio:SIO_000068 ?medical_history, ?event .
+      	  FILTER(?caresm_type != sio:SIO_001027) .
+
+  ?medical_history a sio:SIO_010673 ; sio:SIO_000332 ?person_timeline .
+  ?person_timeline a sio:SIO_000498 ; sio:SIO_000671 ?person_identifier .
+  ?person_identifier a sio:SIO_000115 ; sio:SIO_000300 ?pid .
+
+  ?event a sio:SIO_000088 .
+  ?age a sio:SIO_001013 .
+  ?startdate a sio:SIO_000031 .
+  ?enddate a sio:SIO_000032 .
+  ?organisation a sio:SIO_000012.
+
+  OPTIONAL { ?age sio:SIO_000300 ?age_value }
+  OPTIONAL { ?startdate sio:SIO_000300 ?value_startdate }
+  OPTIONAL { ?enddate sio:SIO_000300 ?value_enddate }
+
+  OPTIONAL {?event a sio:SIO_000088 ; sio:SIO_000300 ?event_id .}
+}
+ORDER BY ?pid

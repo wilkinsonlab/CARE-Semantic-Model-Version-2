@@ -1,0 +1,4 @@
+model,pid,startdate,enddate,event_id,comments,attribute_type,identifier_value,activity,input
+Genetic,50012001,1998-06-30,1998-06-30,report788455685,Whole exome sequencing panel,http://purl.obolibrary.org/obo/GENO_0000136,NM_000341.3(SLC3A1):c.-82T>G,http://purl.obolibrary.org/obo/NCIT_C165219,
+Genetic,50012002,2008-07-10,2008-07-10,report788455686,Whole exome sequencing panel,http://purl.obolibrary.org/obo/GENO_0000135,NC_000023.9:g.32317682G>A,http://purl.obolibrary.org/obo/NCIT_C165219,
+Genetic,50012002,2008-07-10,2008-07-10,report788455686,Whole exome sequencing panel,http://purl.obolibrary.org/obo/GENO_0000134,NC_000001.11:g.123456A>T,http://purl.obolibrary.org/obo/NCIT_C165219,

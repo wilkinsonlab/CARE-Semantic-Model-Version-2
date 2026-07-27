@@ -1,0 +1,64 @@
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX sio: <http://semanticscience.org/resource/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX ordo: <http://www.orpha.net/ORDO/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?patient_id ?value_startdate ?record_label ?output_identifier ?duration_value
+
+WHERE {
+  GRAPH ?record {
+
+    ##################### Core model #######################
+
+    ?person sio:SIO_000228 ?role .
+    ?id sio:SIO_000020 ?role ; sio:SIO_000300 ?patient_id .
+    ?role a sio:SIO_000016 ; sio:SIO_000356 ?process .
+    ?process a sio:SIO_000006, ?process_type ;
+               sio:SIO_000229 ?output .
+    # NCIT_C18020 (Diagnostic Procedure) covers both Diagnosis and
+    # Phenotype -- both share this process_type by design in v2.
+    FILTER(?process_type = obo:NCIT_C18020) .
+
+    OPTIONAL { ?process rdfs:comment ?comments }
+
+    ##################### Output participants #######################
+
+    ?output a sio:SIO_000015 .
+    OPTIONAL { ?output a ?outpute_type . FILTER(?outpute_type != sio:SIO_000015) }
+    OPTIONAL { ?output sio:SIO_000300 ?value }
+
+    # refers to Attribute_ -- present ONLY when value=true (a confirmed
+    # phenotype/diagnosis); absent for a confirmed-absent (value=false)
+    # result, by design. Do not require this unconditionally.
+    OPTIONAL {
+      ?output sio:SIO_000628 ?attribute .
+      ?attribute a sio:SIO_000614 .
+      OPTIONAL { ?attribute a ?attribute_type . FILTER(?attribute_type != sio:SIO_000614) }
+      OPTIONAL { ?attribute sio:SIO_000300 ?duration_value }
+      OPTIONAL {
+        ?attribute sio:SIO_000680 ?duration_startdate ; sio:SIO_000681 ?duration_enddate .
+        ?duration_startdate a sio:SIO_000031 .
+        ?duration_enddate a sio:SIO_000032 .
+        OPTIONAL { ?duration_startdate sio:SIO_000300 ?duration_value_startdate }
+        OPTIONAL { ?duration_enddate sio:SIO_000300 ?duration_value_enddate }
+      }
+    }
+
+    OPTIONAL {
+      ?output sio:SIO_000671 ?output_identifier .
+      ?output_identifier a sio:SIO_000115 .
+      OPTIONAL { ?output_identifier a ?output_identifier_type . FILTER(?output_identifier_type != sio:SIO_000115) }
+      OPTIONAL { ?output_identifier sio:SIO_000300 ?output_identifier_value }
+    }
+  }
+    ##################### Medical history #######################
+
+  ?record a sio:SIO_001027 ;
+    	  rdfs:label ?record_label ;
+        sio:SIO_000680 ?startdate.
+
+  OPTIONAL { ?startdate sio:SIO_000300 ?value_startdate }
+  ?startdate a sio:SIO_000031 .
+}
+ORDER BY ?pid

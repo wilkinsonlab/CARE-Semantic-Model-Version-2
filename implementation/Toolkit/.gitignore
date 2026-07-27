@@ -1,0 +1,11 @@
+dist
+care_sm_toolkit.egg-info
+toolkit/.pytest_cache
+toolkit/__pycache__
+toolkit/API/data/__pycache__
+toolkit/API/__pycache__
+toolkit/test/__pycache__
+.pytest_cache
+__pycache__
+toolkit/test/__pycache__
+toolkit/test/__pycache__

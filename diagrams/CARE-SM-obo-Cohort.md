@@ -14,11 +14,12 @@ Mermaid transcription of [`CARE-SM-obo-Cohort.drawio.png`](https://raw.githubuse
 
 <!-- mermaid-start -->
 ```mermaid
+%%{init: {"themeVariables": {"lineColor": "#888888"}}}%%
 flowchart TD
     classDef usedInstance fill:#ffffff,stroke:#d79b00,stroke-width:7px,color:#333,font-size:20px
     classDef classNode fill:transparent,stroke:#b9c9b4,stroke-width:1.5px,color:#888,font-size:14px
     classDef dataValue fill:#ffffff,stroke:#6c8ebf,stroke-width:7px,color:#333,font-size:18px
-    linkStyle default stroke:#555,stroke-width:5px
+    linkStyle default stroke:#888888,stroke-width:3px
 
     %% Instances
     ID_{{ID_}}:::usedInstance

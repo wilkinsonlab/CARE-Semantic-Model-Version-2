@@ -8,7 +8,7 @@
 
 <p align="center">
   <img
-    src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/care-sm.png?raw=true"
+    src="https://raw.githubusercontent.com/wilkinsonlab/CARE-Semantic-Model-Version-2/main/docs/assets/care-sm.png"
     alt="CARE-SM logo"
     width="300"
     height="300"
@@ -75,7 +75,7 @@ The documentation includes:
 Your feedback is more than welcome and will help us improve the CARE Semantic Model.
 
 Please use **GitHub Issues** to provide feedback or report problems:  
-https://github.com/CARE-SM/CARE-Semantic-Model/issues
+[github.com/wilkinsonlab/CARE-Semantic-Model-Version-2/issues](https://github.com/wilkinsonlab/CARE-Semantic-Model-Version-2/issues)
 
 ---
 
@@ -117,8 +117,8 @@ under grant agreement <strong>No. 825575</strong>.
 </p>
 
 <p align="center">
-  <img src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/ejprd.png?raw=true" alt="EJPRD logo" height="50">
-  <img src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/eu.png?raw=true" alt="EU logo" height="50">
+  <img src="https://raw.githubusercontent.com/wilkinsonlab/CARE-Semantic-Model-Version-2/main/docs/assets/ejprd.png" alt="EJPRD logo" height="50">
+  <img src="https://raw.githubusercontent.com/wilkinsonlab/CARE-Semantic-Model-Version-2/main/docs/assets/eu.png" alt="EU logo" height="50">
 </p>
 
 <p>
@@ -130,7 +130,7 @@ under grant agreement <strong>No. 101156595</strong>.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/wilkinsonlab/CARE-Semantic-Model-Version-2/main/docs/assets/erdera.svg" alt="ERDERA logo" height="50">
-  <img src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/eu.png?raw=true" alt="EU logo" height="50">
+  <img src="https://raw.githubusercontent.com/wilkinsonlab/CARE-Semantic-Model-Version-2/main/docs/assets/eu.png" alt="EU logo" height="50">
 </p>
 
 <p>
@@ -142,5 +142,5 @@ at <strong>Universidad Politécnica de Madrid</strong>.
 
 <p>
 <p align="center">
-  <img src="https://github.com/CARE-SM/CARE-SM-docs/blob/main/docs/assets/UPM.png?raw=true" alt="EU logo" width="130">
+  <img src="https://raw.githubusercontent.com/wilkinsonlab/CARE-Semantic-Model-Version-2/main/docs/assets/UPM.png" alt="EU logo" width="130">
 </p>

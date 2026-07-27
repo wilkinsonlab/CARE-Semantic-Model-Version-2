@@ -1,0 +1,3 @@
+model,pid,value_datatype,startdate,output_type,value,input_value
+Consent,50012001,xsd:string,2011-03-25,http://purl.obolibrary.org/obo/DUO_0000001,I agree to my de-identified data being used for research purposes.,consent_form_v2.1.pdf
+Consent,50012002,xsd:string,2012-05-14,http://purl.obolibrary.org/obo/OBIB_0000488,I agree to be contacted about future studies.,consent_form_v2.1.pdf

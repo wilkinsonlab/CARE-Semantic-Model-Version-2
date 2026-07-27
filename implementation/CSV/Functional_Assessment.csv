@@ -1,0 +1,3 @@
+model,pid,value_datatype,startdate,enddate,event_id,value,target,unit,protocol_id
+Functional_Assessment,50012001,xsd:float,2011-03-25,2011-03-25,22225154,2,http://www.whodas.org,,http://purl.obolibrary.org/obo/NCIT_C130325
+Functional_Assessment,50012002,xsd:float,2012-05-14,2012-05-14,22225155,8.4,http://www.whodas.org,http://purl.obolibrary.org/obo/UO_0000027,http://purl.obolibrary.org/obo/NCIT_C130325

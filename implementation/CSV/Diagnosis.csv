@@ -1,0 +1,5 @@
+model,pid,startdate,enddate,event_id,target,value,value_datatype
+Diagnosis,50012001,2016-09-20,2016-09-20,9125545215,http://www.orpha.net/ORDO/Orphanet_79282,true,xsd:boolean
+Diagnosis,50012001,2016-09-20,2016-09-20,9125545215,http://www.orpha.net/ORDO/Orphanet_93552,true,xsd:boolean
+Diagnosis,50012002,2020-11-30,2020-11-30,9125545216,http://www.orpha.net/ORDO/Orphanet_79282,true,xsd:boolean
+Diagnosis,50012002,2020-11-30,2020-11-30,9125545216,http://www.orpha.net/ORDO/Orphanet_534,false,xsd:boolean
