@@ -2,3 +2,4 @@ docs/_build/
 __pycache__/
 *.pyc
 docs/assets/care-sm copy.png
+*.code-workspace
