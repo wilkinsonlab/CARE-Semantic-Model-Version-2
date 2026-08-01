@@ -196,28 +196,114 @@ and "accept any token at all" are close to the same thing in practice.
 
 And the shared `auth-key` this facade currently checks has the identical
 underlying weakness, just one level removed: it doesn't authenticate the
-human either. It only confirms "this call came through something holding
-the VP's shared secret" — i.e. it's evidence the request passed through
-the VP's intended UI/flow, not evidence about who's sitting behind it or
-whether they're ethically authorized for anything. A resource choosing to
-trust `auth-key`-bearing calls is a pragmatic call — "at least we know
-this went through the front door we were told to expect" — not a
-meaningful access-control decision about the end user. Both mechanisms
-currently describe *where a request came from*, not *who should be
-allowed to see a count*. Closing that gap for real would need something
-neither mechanism provides today: an actual, ERDERA-governed authorization
-signal (e.g. a specific entitlement tied to real ethics/data-access
-approval), independent of which identity or software happened to carry
-the request.
+human either. At best it confirms "this call came through something
+holding the VP's shared secret" — and even that weaker claim needs the
+qualification the next section spells out, because holding the secret is
+far easier to come by than "being the VP." A resource choosing to trust
+`auth-key`-bearing calls is a pragmatic call — "at least this presents the
+credential we were told to expect" — not a meaningful access-control
+decision about the end user, and, as it turns out, not even a reliable
+one about the calling software. Both mechanisms currently describe *where
+a request claims to come from*, not *who should be allowed to see a
+count*. Closing that gap for real would need something neither mechanism
+provides today: an actual, ERDERA-governed authorization signal (e.g. a
+specific entitlement tied to real ethics/data-access approval),
+independent of which identity or software happened to carry the request.
+
+## How trivially spoofable is this, in practice?
+
+Everything above analyzes what each header is *supposed* to mean. This
+section is about what stops someone from just... not going through the VP
+at all, and sending whatever they want directly. Short answer: as
+designed, nothing does. This isn't a flaw specific to this facade — it's
+a property of the VP's whole trust model, and applies identically to
+every resource behind it.
+
+**Both headers are static, unsigned, bearer-style values — anyone who
+sees one, once, can replay it forever, from anywhere.** Neither `auth-key`
+nor the forwarded `Authorization` token is bound to a specific request, a
+specific time window, a specific origin, or a specific TLS session. They
+are exactly the string that gets sent, every time, until someone manually
+rotates them. That means:
+
+- **Anyone can watch their own browser's Network tab during a normal,
+  legitimate login and read both headers directly** — the exact scenario
+  raised here. There's no special access or interception required: a
+  logged-in VP user, using nothing but their own browser's built-in
+  devtools, sees the literal `auth-key` and `Authorization` values on
+  every outgoing request their own session makes. HTTPS doesn't help
+  here — TLS protects data in transit *between* endpoints, from a network
+  eavesdropper sitting somewhere on the path. It does nothing to stop an
+  endpoint from reading its own already-decrypted traffic, which is
+  exactly what a browser's Network tab shows. "It's HTTPS" is not an
+  answer to "the legitimate client can see its own headers."
+- **Once captured, `auth-key` doesn't just replay the same request — it
+  authorizes *any* request.** There's no request signing (HMAC over the
+  body, a signed nonce, anything binding the credential to specific
+  content), so a captured key can be attached to a hand-crafted request
+  with arbitrary filters, not merely a re-sent copy of one that was
+  observed. Concretely: anyone who has ever seen this facade's `auth-key`
+  once can query it directly, forever, for counts on any filter
+  combination they like, indistinguishable at the protocol level from a
+  genuine VP call.
+- **`auth-key` is one shared secret for the *entire* VP, not per-user or
+  per-session.** Any single person who extracts it — a curious end user,
+  a developer with server/log access, a leaked CI secret, a compromised
+  laptop — compromises trust for every VP user simultaneously.
+  There's no way to revoke access for just the person who misused it
+  without rotating the key and re-distributing it to every registered
+  resource.
+- **The forwarded `Authorization` token is, if anything, worse to rely
+  on for exactly the reason raised here.** It's the end user's *own*
+  credential — they don't need to "steal" it, they already legitimately
+  possess it. Nothing stops them from extracting it from their own
+  browser and calling a resource directly, bypassing the VP's UI (and
+  whatever filter-gating logic lives only in that UI/backend) entirely.
+  This is a real reason not to lean on "validate the LS-AAI token" as a
+  meaningful access control even before the audience/entitlement concerns
+  raised earlier in this document.
+- **Nothing in the source (VP or this facade) implements rate limiting,
+  anomaly detection, or key rotation.** A captured credential can be used
+  as often and as fast as the caller likes; nothing currently in this
+  chain would notice or slow it down.
+
+None of this is solved by "add a bit more validation" in this facade
+alone — it's a systemic property of using static, unsigned, bearer-style
+secrets over a client the request-sender fully controls. Real mitigations
+would look more like: short-lived, per-request signed tokens (issued by
+the VP with an expiry, not one static value); HMAC request signing over
+the body so a captured credential can't be pasted onto an arbitrary
+query; mutual TLS or IP allowlisting for the VP's known egress (Severance
+itself already does exactly this for its own Internal↔External traffic —
+`ALLOWED_INTERNAL_IPS` in `external/env_template` — the same pattern
+could apply between the VP and its resources, though the VP's IPs would
+need to be known and stable for that to work); rate limiting; and a real
+key-rotation procedure. None of that exists today. This facade's current
+`auth-key` check is better than nothing (it stops a casual, uninformed
+caller from getting a count by accident) but should not be described, to
+anyone, as meaningfully restricting *who* can obtain patient counts from
+a determined, technically unsophisticated observer — a browser's Network
+tab is all it takes.
 
 ## Practical takeaway for resource implementers
 
-1. Validate `auth-key` against the secret you were given at registration.
-   That's your real authentication check.
+1. Validate `auth-key` against the secret you were given at registration
+   — but understand what that check actually buys you: it filters out
+   casual/uninformed callers, not a determined one. Anyone who has ever
+   captured the value (trivially, via their own browser's Network tab)
+   can replay it indefinitely, from anywhere, with any request body they
+   like. Don't describe or rely on this as real access control over *who*
+   gets a count — see the spoofability section above.
 2. Don't attempt to validate `Authorization` — it's the end user's own AAI
    token passed through as a courtesy, present only when they're logged
-   in, and not verifiable by you without becoming an AAI relying party
-   yourself.
+   in, not verifiable by you without becoming an AAI relying party
+   yourself, and just as easily extracted and replayed by that same user
+   directly, bypassing the VP entirely.
 3. Don't assume "logged in" vs "anonymous" is visible to you as a
    resource — it isn't, directly. It's visible only indirectly, through
    which filters happen to be present in the request you receive.
+4. If a real access-control decision is ever needed (e.g. gating patient
+   counts to genuinely ethics-approved researchers), don't build it on
+   either header as currently implemented. It needs something with actual
+   cryptographic teeth — signed, short-lived, request-bound credentials —
+   not a static value that's identical on every call forever.
