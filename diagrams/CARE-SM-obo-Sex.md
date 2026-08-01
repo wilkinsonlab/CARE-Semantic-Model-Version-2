@@ -42,7 +42,7 @@ flowchart TD
     SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
     NCIT_C160908["obo:NCIT_C160908<br/>(Sex Code)"]:::classNode
     SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
-    SexOptions["One of the following:<br/>obo:NCIT_C16576 (Female)<br/>obo:NCIT_C20197 (Male)<br/>obo:NCIT_C89084 (Undetermined)<br/>obo:NCIT_C17998 (Unknown)"]:::classNode
+    SexOptions["One of the following:<br/>obo:NCIT_C16576 (Female)<br/>obo:NCIT_C20197 (Male)<br/>obo:NCIT_C124294 (Undetermined)<br/>obo:NCIT_C17998 (Unknown)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
