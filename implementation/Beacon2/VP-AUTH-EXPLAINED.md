@@ -12,7 +12,13 @@ if the VP codebase changes.
 **The short version:** every outbound call from the VP to a resource
 carries *two* separate, unrelated auth headers. Only one of them is meant
 for the resource to check. Confusing the two is an easy and consequential
-mistake for a resource implementer to make.
+mistake for a resource implementer to make. There's also a third hop
+worth understanding if the resource itself is a Severance-backed facade
+(like this one): the facade's own authentication to Severance External is
+a completely separate, independent credential from anything discussed
+above, and it currently carries none of the VP-vs-public trust
+distinction forward — see "This facade's own hop: Severance's `AUTH_TOKEN`"
+near the end of this document.
 
 ## The two headers
 
@@ -307,3 +313,57 @@ tab is all it takes.
    either header as currently implemented. It needs something with actual
    cryptographic teeth — signed, short-lived, request-bound credentials —
    not a static value that's identical on every call forever.
+
+## This facade's own hop: Severance's `AUTH_TOKEN`
+
+Everything above is about the hop from the VP (or any other caller) to
+this facade. There's a separate, independent hop after that: this
+facade's own authentication to Severance External, using
+`BEACON_SEVERANCE_AUTH_TOKEN` (sent as `Authorization: Bearer ...` on
+every call to `/severance/queries`, matching Severance External's own
+`AUTH_TOKEN` env var — see `Severance/external/env_template`). Worth
+understanding on its own terms, separately from the VP-facing headers
+above.
+
+**Same underlying weakness, real structural mitigant.** Severance's
+`AUTH_TOKEN` is exactly the same shape of thing as `auth-key` — a static,
+unsigned bearer value, good until someone rotates it, replayable by
+anyone who ever sees it (a leaked config, a compromised deployment
+host, a captured value in transit if it's ever mishandled). But unlike a
+bare API key in front of an arbitrary query endpoint, Severance bounds
+what a stolen token actually grants: **only pre-approved, named queries**,
+never arbitrary SPARQL. Even with a fully compromised `AUTH_TOKEN`, an
+attacker can submit only a `query_id` that already exists in Internal's
+`./queries` folder, with attacker-chosen values for that query's own
+declared variables — they can't discover the query text (it never leaves
+Internal), invent a new query, or execute anything outside that
+pre-approved set. That named-query boundary is doing real security work
+here; the token by itself isn't what's protecting the triplestore.
+
+This is also why Severance is comfortable letting the token's *meaning*
+be whatever the deploying client wants — e.g. some deployments (RedCap
+logins setting a per-installation token that Severance External is
+configured to match) get real, if informal, per-deployment significance
+out of this value. **Beacon deployments don't get any of that.** This
+facade uses exactly one static `BEACON_SEVERANCE_AUTH_TOKEN` for every
+single call to Severance External, regardless of whether the original
+`/individuals` request came from the VP with a valid `auth-key`, or from
+a fully anonymous public caller with none at all. From Severance
+External's point of view, there is exactly one caller: "the Beacon
+facade" — full stop. The VP-vs-public trust distinction made earlier in
+the request lifecycle (see the granularity split above) is fully
+resolved and discarded *before* Severance is ever contacted; Severance's
+own `AUTH_TOKEN` layer carries zero information about, and provides zero
+additional protection specific to, the original caller's trust level.
+**Beacon calls are, in this specific sense, ignoring Severance's own
+per-client authentication semantics entirely** — they collapse it to a
+single, undifferentiated "yes, this is Beacon" signal, in a way that
+other Severance client integrations may not.
+
+None of this is a defect unique to this implementation — it's inherent
+to using one shared client credential for an entire class of traffic
+(every Beacon caller, trusted or not) rather than a credential per
+underlying requester. If finer-grained propagation of caller trust all
+the way through to Severance is ever wanted, it would need Severance
+itself to understand more than one caller identity per registered
+client, which it doesn't today.
