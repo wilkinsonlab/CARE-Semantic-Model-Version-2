@@ -6,6 +6,8 @@ This is the first tagged release of CARE-Semantic-Model-Version-2 — everything
 
 ## [Unreleased]
 
+## [1.0.0-beta2] - 2026-08-07
+
 The model-side redesign in 1.0.0-beta was intentionally ahead of the CARE-SM Toolkit, YARRRML mapping, and example CSVs. This entry propagates that redesign into the real, executable implementation, consolidated into this repository at `implementation/` (superseding the separate `CARE-SM-Implementation` and `CARE-SM-Toolkit` repos, which are no longer the actively-edited copies).
 
 ### RDF / SPARQL examples
@@ -20,8 +22,7 @@ The model-side redesign in 1.0.0-beta was intentionally ahead of the CARE-SM Too
 
 - Moved the CARE-SM w3id identifier from `https://w3id.org/CARE-SM` to `https://w3id.org/CARE-SM-2`, since v2 is a distinct, incompatible model redesign and needs its own persistent identifier rather than silently reusing v1's. Updated everywhere the old namespace appeared: `schema/care-sm-2.skos` (all 22 concept URIs, `skos:inScheme` references, and `rdfs:seeAlso` links, now pointing at the new `care-sm-semantic-model-v2.readthedocs.io` docs site), the `caresm:` prefix in both `implementation/YARRRML/CARE_yarrrml.yaml` and `CARE_Fiab_yarrrml.yaml`, all 19 regenerated `implementation/RDF/*.nq` examples, and the legend text embedded in the legacy drawio diagram source `images/obo/CARE-SM-obo`.
 - While updating `care-sm-2.skos`, also renamed its `Disability` concept to `Functional_Assessment` to match the model rename made earlier in the v2 redesign, and corrected the Genetic concept's `rdfs:seeAlso` anchor from `#genetic` to `#genotype` to match its actual heading anchor.
-
-### Docker / deployment
+- **Reverted the `CARE-SM-2` namespace above** in favor of `https://w3id.org/CARE-SM/v2`, at the w3id.org maintainers' request: they asked that all CARE-SM community entries consolidate into a single `.htaccess` under the one `w3id.org/CARE-SM` prefix, with v1 (widely in use, can't change) resolving as before and v2 (not yet in use anywhere, safe to redirect) living at the `/v2` subpath instead of a separate `-2` prefix. Updated every reference: `schema/care-sm-2.skos` (still so named — see note below), all 19 `implementation/RDF/*.nq` examples, the `caresm:` prefix in both YARRRML mappings, and the drawio legend in `images/obo/CARE-SM-obo`. File and directory names (`care-sm-2.skos`, `CARE-SM-*.nq`) were deliberately left as-is — only the namespace URIs needed to be correct, not the local filenames.
 
 - `setup.py`'s `url`/`project_urls` updated from the old `CARE-SM/CARE-SM-Toolkit` repo to this one (author credit to Pablo Alarcón Moreno kept as-is — legitimate provenance, not a stale reference).
 - `Dockerfile` and `docker-compose.yaml` moved from `toolkit/API/` to the Toolkit package root, so they build from (and are discoverable at) the package's own top level rather than buried inside its API submodule. `toolkit/API/requirements.txt` no longer lists `care-sm-toolkit` as a PyPI dependency (the image now installs from local source via `pip install .`, which would otherwise conflict).

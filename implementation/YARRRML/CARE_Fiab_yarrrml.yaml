@@ -713,7 +713,7 @@ prefixes:
   obo: http://purl.obolibrary.org/obo/
   SCTID: http://snomed.info/id/
   loinc: https://loinc.org/
-  caresm: https://w3id.org/CARE-SM-2/#
+  caresm: https://w3id.org/CARE-SM/v2/#
   this: '|||baseURI|||'
   xsd: http://www.w3.org/2001/XMLSchema#
   grel: http://users.ugent.be/~bjdmeest/function/grel.ttl#
