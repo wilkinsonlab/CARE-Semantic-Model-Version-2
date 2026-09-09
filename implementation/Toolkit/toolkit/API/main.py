@@ -6,10 +6,19 @@ from toolkit.main import Toolkit
 import logging
 logger = logging.getLogger(__name__)
 
+# This API has no auth of its own and is meant to be reachable only from other
+# containers on an internal compose network (see Sextans Fix's docker-compose,
+# which never publishes a port for this service) -- but FastAPI's interactive
+# docs/schema endpoints default to on regardless, handing anyone who *can*
+# reach it a full map of the API for free. Disable them; nothing here needs
+# interactive exploration in production.
 app = FastAPI(
     title="CARE-SM Toolkit",
     description="Toolkit for data transformation using CARE-SM",
-    version="2.0.0"
+    version="2.0.0",
+    docs_url=None,
+    redoc_url=None,
+    openapi_url=None,
 )
 
 # /data is the fixed convention this image is deployed under (e.g. Sextans
