@@ -6,6 +6,28 @@ This is the first tagged release of CARE-Semantic-Model-Version-2 — everything
 
 ## [Unreleased]
 
+### Beacon facade (`implementation/Beacon2/facade`)
+
+- Added `docker-compose.yml`, hardened the same way as Severance's own `external/`/`internal/` compose
+  files: `restart: always`, `security_opt: no-new-privileges`, `cap_drop: [ALL]` (no `cap_add` needed --
+  this Dockerfile never runs as root), `mem_limit`/`cpus` ceilings. Builds from source (`build: .`)
+  since this facade has no registry image yet. Done alongside the identical addition to its sibling,
+  `Severance/facades/shallot-facade/docker-compose.yml` (a separate repo).
+- **Found and fixed a real bug, by actually building and running the image for the first time**: the
+  Dockerfile's runtime stage never copied `Gemfile`/`Gemfile.lock`, only the already-vendored gems --
+  `bundle exec` needs the Gemfile itself present to resolve/activate them. Every container exited
+  immediately with "Could not locate Gemfile". The README's own "Known gaps" note that this build was
+  unverified turned out to be accurate.
+- Added a generic `error StandardError` handler to `app.rb` as defense in depth: `show_exceptions
+  :after_handler` renders Sinatra's detailed exception page (full backtrace, file paths, gem versions)
+  for any uncaught exception, in every environment. Not currently reachable here (`/individuals` already
+  rescues everything `SeveranceClient#query` can raise), but this facade's sibling
+  (`shallot-facade`) hit exactly this class of bug live on a route with no such rescue, before its own
+  fix and this same backstop were added there too.
+- Verified live end to end with the rebuilt image: `GET /info` (200) and `POST /individuals` against an
+  unreachable Severance (clean `502 severance_unreachable`, no leaked trace), running as the correct
+  non-root `beacon` user.
+
 ## [1.0.0-beta2] - 2026-08-07
 
 The model-side redesign in 1.0.0-beta was intentionally ahead of the CARE-SM Toolkit, YARRRML mapping, and example CSVs. This entry propagates that redesign into the real, executable implementation, consolidated into this repository at `implementation/` (superseding the separate `CARE-SM-Implementation` and `CARE-SM-Toolkit` repos, which are no longer the actively-edited copies).
