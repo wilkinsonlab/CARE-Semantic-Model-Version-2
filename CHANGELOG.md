@@ -8,6 +8,16 @@ This is the first tagged release of CARE-Semantic-Model-Version-2 — everything
 
 ### Beacon facade (`implementation/Beacon2/facade`)
 
+- Fixed `CVE-2026-42257`: the base `ruby:3.2-alpine` image's own stale, vulnerable `net-imap` default
+  gem (`0.3.9`) -- an unused-by-this-app default gem, caught by the first real run of Severance's
+  `Security/security-patch.sh` (which builds this facade from a fresh clone of this repo). Same fix as
+  its sibling `shallot-facade`: pinned `net-imap ~> 0.5` in the `Gemfile` (resolves to `0.6.7`) and
+  explicitly uninstalled the base image's stale copy in the Dockerfile (pinning alone installs the
+  patched version alongside the old one, not in place of it). Verified live: rebuilt image has only
+  `net-imap 0.6.7` present, and still boots and serves correctly.
+
+### Beacon facade (`implementation/Beacon2/facade`)
+
 - Added `docker-compose.yml`, hardened the same way as Severance's own `external/`/`internal/` compose
   files: `restart: always`, `security_opt: no-new-privileges`, `cap_drop: [ALL]` (no `cap_add` needed --
   this Dockerfile never runs as root), `mem_limit`/`cpus` ceilings. Builds from source (`build: .`)
