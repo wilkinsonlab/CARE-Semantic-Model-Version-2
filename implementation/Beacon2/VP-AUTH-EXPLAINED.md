@@ -3,7 +3,9 @@
 This explains what "auth" means on a Beacon (or other) call arriving from
 the ERDERA Virtual Platform (VP), for anyone implementing or registering a
 resource behind it. It was written while building a Beacon v2 facade for
-CARE-SM-2 (see `handoff-beacon-caresm.md` and `facade/`), by reading the
+CARE-SM-2 (see
+[`beacon-facade`](https://github.com/FAIR-Data-Systems/Severance-Facades/tree/main/beacon-facade)
+and its `handoff-beacon-caresm.md`, now in a separate repo), by reading the
 VP's own source — `RDVP-Portal-frontend` and `RDVP-Portal-backend` on the
 ERDERA GitHub org — rather than assuming spec behavior. Every claim below
 points at the specific class/file it comes from, so it can be re-verified

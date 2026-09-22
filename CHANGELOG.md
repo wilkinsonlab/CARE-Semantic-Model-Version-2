@@ -6,7 +6,20 @@ This is the first tagged release of CARE-Semantic-Model-Version-2 — everything
 
 ## [Unreleased]
 
+### Changed
+
+- `implementation/Beacon2/facade`, `implementation/Beacon2/severance-queries`, and
+  `implementation/Beacon2/handoff-beacon-caresm.md` moved to their own dedicated repo,
+  [`FAIR-Data-Systems/Severance-Facades`](https://github.com/FAIR-Data-Systems/Severance-Facades)
+  (`beacon-facade/`), alongside its sibling `shallot-facade` (moved there from the `Severance` repo in
+  the same change). The facade had no real code dependency on anything else in this repo. Full pre-move
+  commit history is preserved in the new repo's own git log. `implementation/Beacon2/README.md` and
+  `VP-AUTH-EXPLAINED.md` stay here, updated to point at the new repo; `VP-AUTH-EXPLAINED.md` is general
+  VP-auth documentation, not specific to this facade's own code.
+
 ### Beacon facade (`implementation/Beacon2/facade`)
+
+*(Historical -- this facade has since moved; see "Changed" above.)*
 
 - Fixed `CVE-2026-42257`: the base `ruby:3.2-alpine` image's own stale, vulnerable `net-imap` default
   gem (`0.3.9`) -- an unused-by-this-app default gem, caught by the first real run of Severance's
