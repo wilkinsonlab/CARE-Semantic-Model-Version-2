@@ -144,3 +144,20 @@ at <strong>Universidad Politécnica de Madrid</strong>.
 <p align="center">
   <img src="https://raw.githubusercontent.com/wilkinsonlab/CARE-Semantic-Model-Version-2/main/docs/assets/UPM.png" alt="EU logo" width="130">
 </p>
+
+<hr>
+
+<h2>Contributions</h2>
+
+<p>
+The model itself (this repo and its v1 predecessor) is the work of Pablo Alarcón-Moreno and Mark Wilkinson — see the citation above. Some recent tooling/model work has been a collaboration between Mark Wilkinson and Claude (Anthropic) — for example, the <code>Genetic</code> model's <code>target</code> field and the <code>tools/diagram_sync.py</code> bug fix:
+</p>
+
+**Mark Wilkinson** ([@markwilkinson](https://github.com/markwilkinson)):
+- Directed the decision that `Genetic.target` must be Mandatory (a variant/zygosity report isn't meaningful without a resolvable gene)
+- Directed the Sextans Suite documentation update (FAIR-in-a-box superseded)
+- Review and correction throughout
+
+**Claude** (Anthropic):
+- Implementation (diagram edits, Toolkit code fix, `diagram_sync.py` bug fix, glossary/CSV updates)
+- Regression test and verification against the real Toolkit pipeline
