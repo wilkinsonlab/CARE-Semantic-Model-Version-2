@@ -487,7 +487,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **activity**: Full concept IRI for the specific method.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **input**: Full concept IRI for the type of substance sample analysed.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **target**:
+- ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **target**: Full concept IRI for the gene, e.g. `http://identifiers.org/hgnc/10591` (SCN4A). Mandatory: a variant or zygosity report is only meaningful in relation to a specific gene, so every Genetic record must name one. Data that does not unambiguously identify a single gene should not be represented as a Genetic record at all -- see `docs/migration.md`.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **frequency_type**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **frequency_value**:
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **startdate**: ISO 8601-formatted start date of the data registration.

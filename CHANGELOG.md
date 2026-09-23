@@ -6,7 +6,50 @@ This is the first tagged release of CARE-Semantic-Model-Version-2 — everything
 
 ## [Unreleased]
 
+### Genetic model — `target` (gene) added
+
+- **The `Genetic` model can now name the gene a variant/zygosity report is about** —
+  previously it had no slot for this at all, only `identifier_value` (a variant's own
+  lexical notation, e.g. HGVS) and `attribute_type` (zygosity). Added the same
+  `Process_ --has target--> Target_` pattern already used by Diagnosis/Laboratory/etc.:
+  `Target_` is typed by the gene's concept IRI (e.g. `http://identifiers.org/hgnc/10591`
+  for SCN4A) and carries the gene symbol as an `rdfs:label`. Diagram
+  (`diagrams/CARE-SM-obo-Genetic.md`), Toolkit template
+  (`implementation/Toolkit/toolkit/template.py`), and `docs/glossary.md` all
+  regenerated/updated via `tools/diagram_sync.py --write Genetic`.
+- **`target` is Mandatory, not Optional**, for this model specifically
+  (`POSITIVE_MANDATORY_OVERRIDE[("target", "Genetic")]` in `tools/diagram_sync.py`): a
+  variant or zygosity report is only meaningful in relation to a specific gene, so every
+  Genetic record must name one. Data that does not unambiguously identify a single gene
+  should not be represented as a Genetic record at all.
+- `implementation/Toolkit/toolkit/main.py`: added `"Genetic"` to the `target_type`
+  allowlist in `expected_target_models` — without this, the Toolkit's `dispatch()` would
+  silently drop any populated `target` value on a Genetic row (logs an info message,
+  emits nothing). This is the actual load-bearing gate; `tools/diagram_sync.py` keeps its
+  own mirror of this list (`DYNAMIC_FIELD_ROUTING`) in sync by hand, updated alongside it.
+- `implementation/CSV/Genetic.csv`: added a populated `target` on every row (previously
+  two rows demonstrated the multi-variant-per-report pattern with bare chromosome-level
+  `NC_` accessions and no resolvable gene — replaced with a real compound-heterozygous
+  `DYSF` example, two variants, same gene, both `GENO_0000402`). Verified end-to-end
+  through the real Toolkit (`_process_file`): zero rows dropped, `target_type` correctly
+  populated on all three.
+- No YARRRML change needed — confirmed via `tools/diagram_sync.py --yarrrml`: the
+  existing generic `target_id`/`target_type` mapping (`sio:SIO_000291`, already exercised
+  by other models) covers the new edge for free.
+- **Found and fixed a real bug in `tools/diagram_sync.py`**: `--write <one-model>`
+  crashed with `KeyError` on every model *other* than the one requested, because
+  `write_glossary()` rewrites the whole shared `docs/glossary.md` file in one pass and
+  needs marks for every model in `MODEL_ORDER`, but was being called with only the
+  requested model's freshly-derived marks. Fixed by overlaying the requested model(s)
+  onto `load_glossary_ground_truth()`'s full set first — the same safe-overlay pattern
+  `write_template_py()` already used correctly. Regression test added
+  (`tools/test_diagram_sync.py`).
+
 ### Changed
+
+- Replaced all references to FAIR-in-a-box/FiaB (`docs/implementation.md`,
+  `implementation/RDF/README.md`) with [Sextans Suite](https://github.com/wilkinsonlab/Sextans-Suite)
+  — FAIR-in-a-box has been superseded and no longer exists.
 
 - `implementation/Beacon2/facade`, `implementation/Beacon2/severance-queries`, and
   `implementation/Beacon2/handoff-beacon-caresm.md` moved to their own dedicated repo,

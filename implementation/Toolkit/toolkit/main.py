@@ -197,7 +197,7 @@ class Toolkit:
                 "target_id": ["Symptoms_onset", "Clinical_trial", "Cohort"],
                 "target_type": [
                     "Examination", "Laboratory", "Surgery", "Diagnosis", "Phenotype",
-                    "Functional_Assessment",
+                    "Functional_Assessment", "Genetic",
                 ],
             }
 

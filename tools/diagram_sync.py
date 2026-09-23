@@ -258,7 +258,7 @@ def derive_classified(nodes, edges):
 # already were), so they need no routing table at all -- handled by the
 # generic "field is already a public column name" rule below instead.
 DYNAMIC_FIELD_ROUTING = {
-    "target_type": [("target", {"Examination", "Laboratory", "Surgery", "Diagnosis", "Phenotype", "Functional_Assessment"})],
+    "target_type": [("target", {"Examination", "Laboratory", "Surgery", "Diagnosis", "Phenotype", "Functional_Assessment", "Genetic"})],
     "target_id": [("target", {"Symptoms_onset", "Clinical_trial", "Cohort"})],
     "input_type": [("input", {"Laboratory", "Genetic", "Biobank"})],
     "input_id": [("input", {"Questionnaire", "Medication"})],
@@ -277,6 +277,13 @@ POSITIVE_MANDATORY_OVERRIDE = {
     ("attribute_type", "Status"): "M",
     ("attribute_type", "Examination"): "M",
     ("attribute_type", "Genetic"): "O",
+    # A Genetic record with no resolvable gene is meaningless -- a variant/
+    # zygosity report has to be ABOUT some gene to mean anything. Unlike
+    # attribute_type (zygosity may legitimately be unstated), data that
+    # doesn't unambiguously identify a single gene should not be represented
+    # as a Genetic record at all, rather than emitted with target left blank
+    # (decided 2026-09-23; see docs/glossary.md's target entry).
+    ("target", "Genetic"): "M",
     ("output_type", "Consent"): "M",
     ("output_type", "Medication"): "M",
     ("output_id", "Birthplace"): "M",
@@ -744,7 +751,14 @@ def main():
         full_fixed.update(all_fixed)
         write_template_py(full_fixed)
         print(f"  wrote {TEMPLATE_PATH.relative_to(REPO_ROOT)}")
-        write_glossary(all_marks)
+        # Same safe-overlay pattern as template.py above: write_glossary()
+        # iterates ALL models in MODEL_ORDER (glossary.md is one shared
+        # file), so it needs marks for every model, not just the one(s)
+        # `--write <model>` was scoped to -- otherwise it KeyErrors on every
+        # model outside the requested set. Bug found & fixed 2026-09-23.
+        full_marks = load_glossary_ground_truth()
+        full_marks.update(all_marks)
+        write_glossary(full_marks)
         print(f"  wrote {GLOSSARY_PATH.relative_to(REPO_ROOT)}")
 
     if args.csv:

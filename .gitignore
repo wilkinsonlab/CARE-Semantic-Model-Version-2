@@ -3,3 +3,6 @@ __pycache__/
 *.pyc
 docs/assets/care-sm copy.png
 *.code-workspace
+
+# Session handoff notes — local only
+HANDOFF.md

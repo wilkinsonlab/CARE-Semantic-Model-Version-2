@@ -28,6 +28,7 @@ flowchart TD
     Individual_{{Individual_}}:::usedInstance
     Role_{{Role_}}:::usedInstance
     Process_{{Process_}}:::usedInstance
+    Target_{{Target_}}:::usedInstance
     Specific_method_{{Specific_method_}}:::usedInstance
     Input_{{Input_}}:::usedInstance
     URIProtocol{{"URI for the protocol"}}:::usedInstance
@@ -51,13 +52,15 @@ flowchart TD
     GENO_0000133["Child of obo:GENO_0000133<br/>(zygosity) e.g.:<br/>obo:GENO_0000134 (hemizygosity)<br/>obo:GENO_0000135 (heterozygosity)<br/>obo:GENO_0000136 (homozygosity)<br/>obo:GENO_0000978 (nullizygosity)<br/>obo:GENO_0000402 (compound heterozygosity)"]:::classNode
     NCIT_C171178["obo:NCIT_C171178<br/>(Sequence Variant Report)"]:::classNode
     NCIT_C164607["obo:NCIT_C164607<br/>(Sequence Identifier)"]:::classNode
+    GeneCode["IRI for the gene, e.g.:<br/>http://identifiers.org/hgnc/10591 (SCN4A)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue
     Comments["comments"]:::dataValue
     LexicalSequenceVariant["Lexical sequence variant, e.g.:<br/>NC_000023.9:g.32317682G>A"]:::dataValue
+    GeneSymbol["Gene symbol, e.g.: SCN4A"]:::dataValue
 
-    %% Real edges (indices 0-29)
+    %% Real edges (indices 0-33)
     ID_ -->|"sio:SIO_000300 (has value)"| IndividualID
     ID_ -->|"rdf:type"| SIO_000115
     ID_ -->|"sio:SIO_000020 (denotes)"| Role_
@@ -72,10 +75,15 @@ flowchart TD
     Process_ -->|"rdf:type"| SIO_000006
     Process_ -->|"rdf:type"| NCIT_C15709
     Process_ -->|"rdfs:comment"| Comments
+    Process_ -->|"sio:SIO_000291 (has target)"| Target_
     Process_ -->|"sio:SIO_000028 (has part)"| Specific_method_
     Process_ -->|"sio:SIO_000230 (has input)"| Input_
     Process_ -->|"sio:SIO_000339 (is specified by)"| URIProtocol
     Process_ -->|"sio:SIO_000229 (has output)"| Output_
+
+    Target_ -->|"rdf:type"| SIO_000015
+    Target_ -->|"rdf:type"| GeneCode
+    Target_ -->|"rdfs:label"| GeneSymbol
 
     Specific_method_ -->|"rdf:type"| SIO_000006
     Specific_method_ -->|"rdf:type"| NCIT_C18477
@@ -98,7 +106,7 @@ flowchart TD
     Identifier_ -->|"sio:SIO_000300 (has value)"| LexicalSequenceVariant
     Identifier_ -->|"rdf:type"| NCIT_C164607
 
-    %% Invisible layout-only chains (indices 30-43, hidden below) force siblings into one column
+    %% Invisible layout-only chains (indices 34-50, hidden below) force siblings into one column
     IndividualID ~~~ SIO_000115
     OBI_0000093 ~~~ SIO_000016
     SIO_000006 ~~~ NCIT_C15709 ~~~ Comments
@@ -108,10 +116,11 @@ flowchart TD
     SIO_000015 ~~~ NCIT_C171178
     SIO_000614 ~~~ GENO_0000133
     SIO_000115 ~~~ LexicalSequenceVariant ~~~ NCIT_C164607
+    SIO_000015 ~~~ GeneCode ~~~ GeneSymbol
 
-    Specific_method_ ~~~ Input_ ~~~ URIProtocol ~~~ Output_
-    %% rdf:type edges (indices 1,3,5,6,8,9,15,16,17,18,19,20,22,23,24,25,27,29) de-emphasized so the structural backbone stands out
-    linkStyle 1,3,5,6,8,9,15,16,17,18,19,20,22,23,24,25,27,29 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
-    linkStyle 30,31,32,33,34,35,36,37,38,39,40,41,42,43 stroke:none
+    Target_ ~~~ Specific_method_ ~~~ Input_ ~~~ URIProtocol ~~~ Output_
+    %% rdf:type edges (indices 1,3,5,6,8,9,16,17,19,20,21,22,23,24,26,27,28,29,31,33) de-emphasized so the structural backbone stands out
+    linkStyle 1,3,5,6,8,9,16,17,19,20,21,22,23,24,26,27,28,29,31,33 stroke:#bbb,stroke-width:2px,stroke-dasharray:4 3
+    linkStyle 34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50 stroke:none
 ```
 <!-- mermaid-end -->

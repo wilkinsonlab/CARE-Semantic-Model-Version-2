@@ -2,13 +2,13 @@
 
 **Quick start**
 
-To jump directly to the "just tell me what I have to do to make this work" using FAIR-in-a-box software, please [follow this link](https://github.com/ejp-rd-vp/FiaB/tree/main/CARE-SM-Fiab).
+To jump directly to the "just tell me what I have to do to make this work" using [Sextans Suite](https://github.com/wilkinsonlab/Sextans-Suite) software, please follow the link.
 
 If you want to understand more deeply what you are doing, read on!
 
 [CARE Semantic Model](https://github.com/CARE-SM/CARE-Semantic-Model) defines a set of clinical data elements used in the healthcare domain of knowledge. However, it doesn't specify a mechanism for bringing these to life. 
 
-The proposed implementation workflows described in this repository (both Fiab and Standalone) uses a common set of technologies for the whole transformation of patient data into a RDF-representation.
+The proposed implementation workflows described in this repository (both Sextans Suite and Standalone) uses a common set of technologies for the whole transformation of patient data into a RDF-representation.
 
 1) **CSV**
 
@@ -29,15 +29,15 @@ This implementation requires two main transformation steps:
 
     After the CSV template is curated using the CARE-SM Toolkit, it is fully compatible with the YARRRML template. These templates are then used as inputs to an RDFizer to produce RDF data.
 
-## FAIR-in-a-box software
+## Sextans Suite software
 
-Born as a [European Joint Project on Rare Diseases (EJP-RD)](https://www.ejprarediseases.org/) initiative, a set of technologies and softwares have been created, capable of consuming data tables into RDF data representation. [FAIR-in-a-box](https://github.com/ejp-rd-vp/FiaB) has implemented a whole pipeline for patient-based data using CARE-SM. Same technologies can be used outside FAIR-in-a-box software in a standalone implementation.
+Born as a [European Joint Project on Rare Diseases (EJP-RD)](https://www.ejprarediseases.org/) initiative, a set of technologies and softwares have been created, capable of consuming data tables into RDF data representation. [Sextans Suite](https://github.com/wilkinsonlab/Sextans-Suite) has implemented a whole pipeline for patient-based data using CARE-SM. Same technologies can be used outside Sextans Suite software in a standalone implementation.
 
-FAIR-in-a-box solution is documented out of this repository, please [follow Fiab link](https://github.com/ejp-rd-vp/FiaB)
+Sextans Suite is documented out of this repository, please [follow the Sextans Suite link](https://github.com/wilkinsonlab/Sextans-Suite)
 
 ## Standalone implementation
 
-From those who are not interested in using FAIR-in-a-box or interested in exploring every step in the workflow locally. You have the option to perform RDF transformations without relying on the FAIR-in-a-box solution. To support this process, we have developed Docker compose images that cover the entire transformation pipeline. The standalone implementation can be described as follows:
+From those who are not interested in using Sextans Suite or interested in exploring every step in the workflow locally. You have the option to perform RDF transformations without relying on the Sextans Suite solution. To support this process, we have developed Docker compose images that cover the entire transformation pipeline. The standalone implementation can be described as follows:
 
 <p align="center"> 
   <img src="https://github.com/CARE-SM/CARE-SM-Implementation/blob/main/CARE-SM_workflow.png?raw=true"> 
