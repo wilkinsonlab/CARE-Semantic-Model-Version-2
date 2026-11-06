@@ -6,6 +6,19 @@ This is the first tagged release of CARE-Semantic-Model-Version-2 — everything
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-11-06
+
+### Fixed
+
+- **Toolkit Dockerfile shipped an unpatched Alpine OS layer** — found during Sextans-Suite's
+  2026-11-06 security triage pass: `implementation/Toolkit/Dockerfile` never ran `apk upgrade`
+  at all, so the image carried whatever `libcrypto3`/`libssl3`/`libuuid`/`musl`/`zlib` versions
+  happened to ship in the `python:3.12.11-alpine3.22` base at build time — including a CRITICAL
+  OpenSSL heap-buffer-overflow (CVE-2026-31789) and ~18 HIGH findings, all OS-layer, none in the
+  Toolkit's own Python code. Fixed by adding `RUN apk update && apk upgrade --no-cache` right
+  after `FROM`, matching the pattern already used in Sextans-Suite's other owned images
+  (`cdeb2`, `yrml`).
+
 ## [2.1.0] - 2026-11-06
 
 ### Fixed

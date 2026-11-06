@@ -1,6 +1,11 @@
 # Use the official Python image from the Docker Hub
 FROM python:3.12.11-alpine3.22
 
+# Patch the Alpine OS layer -- the base image's own libcrypto3/libssl3/libuuid/musl/zlib
+# packages lag behind by the time we build, and this image had no apk upgrade step at all
+# (see Sextans-Suite's VULNERABILITY_TRIAGE.md 2026-11-06 pass).
+RUN apk update && apk upgrade --no-cache
+
 # Set the working directory in the container
 WORKDIR /code
 
@@ -14,7 +19,7 @@ RUN pip install --no-cache-dir --upgrade -r /code/toolkit/API/requirements.txt \
     && pip install --no-cache-dir --upgrade .
 
 # Keep in sync with ./VERSION by hand when bumping the image version.
-LABEL org.opencontainers.image.version="2.1.0" \
+LABEL org.opencontainers.image.version="2.1.1" \
       org.opencontainers.image.source="https://github.com/wilkinsonlab/CARE-Semantic-Model-Version-2/tree/main/implementation/Toolkit"
 
 # Command to run the application

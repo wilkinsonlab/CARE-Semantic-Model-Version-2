@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   api:
-    image: markw/care-sm-toolkit:2.1.0
+    image: markw/care-sm-toolkit:2.1.1
     build:
       context: .
     ports:
