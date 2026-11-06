@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir --upgrade -r /code/toolkit/API/requirements.txt \
     && pip install --no-cache-dir --upgrade .
 
 # Keep in sync with ./VERSION by hand when bumping the image version.
-LABEL org.opencontainers.image.version="2.0.0" \
+LABEL org.opencontainers.image.version="2.1.0" \
       org.opencontainers.image.source="https://github.com/wilkinsonlab/CARE-Semantic-Model-Version-2/tree/main/implementation/Toolkit"
 
 # Command to run the application

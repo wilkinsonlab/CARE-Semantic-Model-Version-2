@@ -135,6 +135,23 @@ def test_unique_id_generation(toolkit, sample_df):
     assert uniqid_value.isdigit()
     assert len(uniqid_value) > 20
 
+# normalize_numeric_columns
+
+def test_normalize_numeric_columns_preserves_alphanumeric_ids(toolkit, sample_df):
+    # Regression test for GitHub issue #2: alphanumeric pid/event_id were
+    # silently coerced to NaN because they used to be in the int_columns list.
+    df = sample_df.reindex(columns=Toolkit.columns, fill_value=None)
+    normalized = toolkit.normalize_numeric_columns(df.copy())
+    assert normalized.loc[0, "pid"] == "001"
+    assert normalized.loc[0, "event_id"] == "E001"
+
+
+def test_normalize_numeric_columns_still_casts_age(toolkit, sample_df):
+    df = sample_df.reindex(columns=Toolkit.columns, fill_value=None)
+    normalized = toolkit.normalize_numeric_columns(df.copy())
+    assert normalized.loc[0, "age"] == 30
+    assert normalized["age"].dtype.name == "Int64"
+
 # whole_method
 
 def test_whole_method(toolkit, sample_df, mocker):

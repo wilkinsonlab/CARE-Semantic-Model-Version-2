@@ -316,12 +316,16 @@ class Toolkit:
         Force integer-like columns to use pandas nullable Int64 dtype
         to avoid 30 -> 30.0 caused by NaN values.
         """
+        # pid/event_id are identifiers, not counts -- they're deliberately not
+        # in this list. Coercing them with pd.to_numeric silently turned any
+        # alphanumeric pid/event_id into NaN (and would have dropped leading
+        # zeros from a purely-numeric-looking one too), even though
+        # unique_id_generation above already groups rows correctly on
+        # whatever pid/event_id values they actually are (see GitHub issue #2).
         int_columns = [
             "age",
             "value_integer",
             "frequency_value",
-            "pid",
-            "event_id"
         ]
 
         for col in int_columns:

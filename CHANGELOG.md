@@ -6,6 +6,21 @@ This is the first tagged release of CARE-Semantic-Model-Version-2 — everything
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-11-06
+
+### Fixed
+
+- **Toolkit: alphanumeric `pid`/`event_id` values were silently dropped from `CARE.csv`**
+  ([issue #2](https://github.com/wilkinsonlab/CARE-Semantic-Model-Version-2/issues/2)).
+  `normalize_numeric_columns` (`implementation/Toolkit/toolkit/main.py`) forced `pid` and
+  `event_id` through `pd.to_numeric(..., errors="coerce")` alongside genuinely numeric columns
+  (`age`, `value_integer`, `frequency_value`) — any non-numeric `pid`/`event_id` became `NaN`,
+  and a purely-numeric-looking one (e.g. `"007"`) would also have lost its leading zeros. Fixed
+  by removing `pid`/`event_id` from that column list; `unique_id_generation` already groups rows
+  correctly on whatever value they actually hold, run earlier in the pipeline, so grouping was
+  never affected — only the final written-out column values were. Regression tests added
+  (`toolkit/test/test_pytest.py`).
+
 ### Genetic model — `target` (gene) added
 
 - **The `Genetic` model can now name the gene a variant/zygosity report is about** —
