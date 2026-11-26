@@ -63,3 +63,67 @@ def test_write_glossary_requires_marks_for_every_model(tmp_path, monkeypatch):
     assert written_marks["Genetic"]["target"] == "M"
     other_model = next(m for m in diagram_sync.MODEL_ORDER if m != "Genetic")
     assert written_marks[other_model] == full_marks[other_model]
+
+
+def _derived_marks(model):
+    """Glossary marks derived from a model's diagram exactly as main() does
+    (including its mediated-value value_datatype preservation)."""
+    nodes, edges = diagram_sync.parse_diagram(diagram_sync.DIAGRAMS_DIR / f"CARE-SM-obo-{model}.md")
+    fixed, dynamic = diagram_sync.derive_classified(nodes, edges)
+    old_entry = diagram_sync.load_toolkit_ground_truth().get(model, {})
+    if "value_datatype" not in fixed and "value_datatype" in old_entry:
+        fixed["value_datatype"] = old_entry["value_datatype"]
+    return diagram_sync.derive_glossary_marks(nodes, edges, fixed, model=model, dynamic=dynamic)
+
+
+@pytest.mark.parametrize("model", ["Birthdate", "Sex", "Symptoms_onset", "Phenotype", "Biobank"])
+def test_value_datatype_is_optional_wherever_value_applies(model):
+    """GitHub issue #3: the template's value_datatype is only a per-model
+    default that a CSV value_datatype overrides, so it must not be marked
+    N/A just because template.py fills it. Previously every model came out
+    N, contradicting the exemplar CSVs (and Symptoms_onset genuinely needs
+    the override: date of onset OR age of onset)."""
+    marks = _derived_marks(model)
+    assert marks["value"] in ("M", "O")
+    assert marks["value_datatype"] == "O"
+
+
+def test_value_datatype_stays_na_without_value():
+    """Genetic has no Output_ value at all (its literal is identifier_value)."""
+    marks = _derived_marks("Genetic")
+    assert marks["value"] == "N"
+    assert marks["value_datatype"] == "N"
+
+
+@pytest.mark.parametrize("model", ["Birthplace", "Biobank", "Clinical_trial", "Cohort"])
+def test_mediated_value_through_output_identifier_is_optional(model):
+    """GitHub issue #3 follow-up: for these models `value` reaches the RDF
+    via Output_ --has identifier--> X --has value--> literal (main.py routes
+    it to value_id_string), so it's a real CSV column, not N/A."""
+    assert _derived_marks(model)["value"] == "O"
+
+
+@pytest.mark.parametrize("model", ["Hospitalization", "Surgery"])
+def test_placeholder_output_value_is_optional(model):
+    """These models' Output_ value is a deliberately optional free-form
+    placeholder; the generic has-value rule must not force it to M."""
+    assert _derived_marks(model)["value"] == "O"
+
+
+def test_glossary_csv_mismatches_flags_missing_mandatory_and_filled_na():
+    """The --csv check must catch exactly the issue #3 discrepancies: a
+    Mandatory column left empty (Sex.value) and an N/A column filled."""
+    import pandas as pd
+
+    raw = pd.DataFrame({"model": ["Sex", "Sex"], "pid": ["1", "2"],
+                        "attribute_type": ["http://x", "http://y"],
+                        "unit": [None, "http://z"]})
+    marks = {"model": "M", "pid": "M", "value": "M", "attribute_type": "M", "unit": "N"}
+    problems = diagram_sync.glossary_csv_mismatches(raw, marks)
+    assert any("'value' is Mandatory" in p for p in problems)
+    assert any("'unit' is N/A" in p for p in problems)
+    assert len(problems) == 2
+
+    raw["value"] = ["Female", "Male"]
+    raw["unit"] = None
+    assert diagram_sync.glossary_csv_mismatches(raw, marks) == []

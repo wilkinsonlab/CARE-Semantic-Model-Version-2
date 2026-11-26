@@ -6,6 +6,53 @@ This is the first tagged release of CARE-Semantic-Model-Version-2 — everything
 
 ## [Unreleased]
 
+### Fixed
+
+- **Glossary and exemplar CSVs disagreed on which columns each data element uses**
+  ([issue #3](https://github.com/wilkinsonlab/CARE-Semantic-Model-Version-2/issues/3), reported by
+  Sergi Aguiló). An audit of every glossary entry against every `implementation/CSV/*.csv` example
+  found the two cases in the report plus several more of the same kind:
+  - `value_datatype` was marked N/A for every data element, but 14 example CSVs fill it in. The
+    Toolkit's per-model datatype (`template.py`) is only a *default* that a CSV value overrides,
+    and Symptoms_onset genuinely needs the override (date of onset *or* age of onset). Now marked
+    Optional wherever `value` applies, each entry stating its default. The examples are unchanged,
+    since every value in them already equals the default.
+  - `Sex.csv` and `Status.csv` had no `value` column, although the glossary (and the diagrams'
+    `Output_ --has value--> "Sex name"/"Status name"`) make it Mandatory. Added the
+    human-readable labels.
+  - Birthplace, Biobank, Clinical_trial and Cohort marked `value` N/A, but the Toolkit routes it to
+    the `output_id` identifier's `has value`. Now Optional, with descriptions. Birthplace's example
+    `value` is now the country code `ES` (what the diagram puts there) instead of the name `Spain`.
+    Removed the stray non-standard "value" bullets from Clinical_trial and Cohort.
+  - Hospitalization and Surgery marked `value` Mandatory while describing it as "generic optional
+    output value". Now Optional.
+  - The Birthyear entry said `model: Birthdate`.
+  - `Status.csv` used `sio:SIO_010059` (dead) for its 68 deceased patients, which is outside the
+    recommended terms and not a child of Person Status (`NCIT_C171086`), as the diagram requires.
+    These rows now use `NCIT_C99799` (Pronounced Dead). The glossary's, diagram's and drawio source's
+    lists now give every Vital Status option (Alive, Presumed Alive, Pronounced Dead, Presumed Dead,
+    Found Dead). The diagram's Lost To Follow-Up example now matches the glossary's and data's
+    `NCIT_C70740` instead of `NCIT_C48227`.
+  - Regenerated `implementation/RDF/CARE-SM-{Sex,Status,Birthplace}.nq` with the Toolkit and the
+    Sextans Fix `yrml` image. The only changes are the ones intended above.
+- **`implementation/CSV/CARE.csv` had not been regenerated since the first v2 commit.** It still
+  had the retired `specification` column, lacked every column added since (`value_boolean`,
+  `identifier_value`, `input_value`, `attribute_uniqid`, ...), held 144 Diagnosis and 129 Phenotype
+  rows against today's 4 each, included a defunct `Disability` model, and had no Consent or
+  Functional_Assessment rows. Replaced it with a fresh capture made by the Toolkit image that
+  Sextans Fix pins (`fairdatasystems/care2:2026-11-08`), run on the current example CSVs. That
+  output is identical, apart from generated IDs, to this repo's own Toolkit code. All example
+  rows are kept, and the file maps through Fix's `yrml` image cleanly (74,458 quads).
+- **`tools/diagram_sync.py` couldn't see these discrepancies**, and its `--write` would have
+  reverted the `value_datatype` fix. It marked any template-filled column N/A, missed values that
+  reach the RDF through an output identifier, and forced Hospitalization/Surgery's placeholder
+  value to Mandatory. Its `--csv` mode only checked for dropped rows, despite its docstring.
+  `--csv` now also flags any Mandatory column left empty, or N/A column filled, in an example CSV.
+  Regression tests added in `tools/test_diagram_sync.py`.
+- Mark Wilkinson confirmed the issue, chose to fix the glossary rather than strip `value_datatype`
+  from the examples, and asked for the full Vital Status term set rather than a single replacement
+  code.
+
 ## [2.1.1] - 2026-11-06
 
 ### Fixed

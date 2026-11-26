@@ -42,7 +42,7 @@ flowchart TD
     SIO_000015["sio:SIO_000015<br/>(information content entity)"]:::classNode
     OPMI_0000326["obo:OPMI_0000326<br/>(Status)"]:::classNode
     SIO_000614["sio:SIO_000614<br/>(attribute)"]:::classNode
-    PersonStatusChildIRI["child IRI of obo:NCIT_C171086 (Person Status), e.g.:<br/>obo:NCIT_C37987 (Alive)<br/>obo:NCIT_C90387 (Found Dead)<br/>obo:NCIT_C48227 (Lost To Follow-Up)<br/>obo:NCIT_C124784 (Refusal to Participate)"]:::classNode
+    PersonStatusChildIRI["child IRI of obo:NCIT_C171086 (Person Status), e.g.:<br/>obo:NCIT_C37987 (Alive)<br/>obo:NCIT_C141463 (Presumed Alive)<br/>obo:NCIT_C99799 (Pronounced Dead)<br/>obo:NCIT_C99798 (Presumed Dead)<br/>obo:NCIT_C90387 (Found Dead)<br/>obo:NCIT_C70740 (Subject Lost to Follow Up)<br/>obo:NCIT_C124784 (Refusal to Participate)"]:::classNode
 
     %% Data values
     IndividualID["individual ID"]:::dataValue

@@ -291,6 +291,12 @@ POSITIVE_MANDATORY_OVERRIDE = {
     ("output_id", "Cohort"): "M",
     ("output_id", "Biobank"): "M",
     ("cause_id", "Deathdate"): "O",
+    # Output_'s "has value" is normally the point of the record (M), but
+    # Hospitalization/Surgery's is a deliberately optional, free-form
+    # placeholder ("no output type has been defined for this model yet" --
+    # see their diagrams), so the has-value rule below must not force M.
+    ("value", "Hospitalization"): "O",
+    ("value", "Surgery"): "O",
     # Medication's drug identity was previously routed through the retired
     # "agent" column (M); now routed through "input" (feeds input_id).
     ("input", "Medication"): "M",
@@ -331,17 +337,28 @@ def derive_glossary_marks(nodes, edges, fixed_entry, model=None, dynamic=None):
             marks["duration_startdate"] = "O"
             marks["duration_enddate"] = "O"
 
+    # Mediated value: Output_ --has identifier--> X --has value--> literal
+    # (Birthplace, Biobank, Clinical_trial, Cohort). main.py routes `value`
+    # for these into value_id_string, which the YARRRML mapping writes as
+    # that identifier's "has value" -- so `value` IS a CSV column for them,
+    # not N. Optional: output_id (M) already identifies the record.
+    output_identifiers = {
+        dst for src, label, dst in edges
+        if src == "Output_" and label.startswith("sio:SIO_000671")
+    }
+    has_mediated_value = any(
+        src in output_identifiers and label.startswith("sio:SIO_000300")
+        for src, label, dst in edges
+    )
+
     if has_value_edge:
-        # KNOWN LIMITATION: this always assumes M. Not always true -- e.g.
-        # Hospitalization/Surgery's Output_ value is a deliberately optional
-        # generic placeholder ("no fixed meaning defined yet"), which this
-        # rule can't distinguish from a model where the value is the whole
-        # point of the record. Verify by hand for new models -- no
-        # positive-evidence override table for this one yet (unlike the
-        # attribute_type/output_type/etc. M-vs-O cases, which do have one:
-        # POSITIVE_MANDATORY_OVERRIDE).
-        marks["value"] = "M"
-        marks["value_datatype"] = "O"
+        # Assumes M unless POSITIVE_MANDATORY_OVERRIDE says otherwise (e.g.
+        # Hospitalization/Surgery's optional placeholder value). Verify by
+        # hand for new models: diagram structure can't tell "the point of
+        # the record" from "an optional extra".
+        marks["value"] = POSITIVE_MANDATORY_OVERRIDE.get(("value", model), "M")
+    elif has_mediated_value:
+        marks["value"] = "O"
 
     if "Output_" in nodes:
         marks["startdate"] = "O"
@@ -353,6 +370,15 @@ def derive_glossary_marks(nodes, edges, fixed_entry, model=None, dynamic=None):
     for field in fixed_entry:
         if field in marks:
             marks[field] = "N"
+
+    # ...except value_datatype: the template's value is only a per-model
+    # DEFAULT that a CSV value_datatype overrides (add_columns_from_template
+    # merges the row over the template), and some models genuinely need the
+    # override (Symptoms_onset: date of onset OR age of onset). So wherever
+    # the model has a value at all, value_datatype is Optional, not N/A
+    # (GitHub issue #3).
+    if marks["value"] in ("M", "O"):
+        marks["value_datatype"] = "O"
 
     # Dynamic (non-fixed) fields are supplied via whichever public column
     # carries them. attribute_type/output_type/output_id/cause_id ARE the
@@ -593,7 +619,22 @@ def write_glossary(all_new_marks):
 # ---------------------------------------------------------------------------
 # CSV example validation (report-only)
 # ---------------------------------------------------------------------------
-def check_csv_examples(models):
+def glossary_csv_mismatches(raw, marks):
+    """Compares an example CSV's raw (pre-Toolkit) contents against the
+    glossary's marks for its model: every M column must be filled on every
+    row, and no N column may be filled on any row. Returns a list of
+    human-readable problems (empty == consistent)."""
+    problems = []
+    for col, letter in marks.items():
+        filled = int(raw[col].notna().sum()) if col in raw.columns else 0
+        if letter == "M" and filled < len(raw):
+            problems.append(f"'{col}' is Mandatory in the glossary but filled on only {filled} of {len(raw)} rows")
+        elif letter == "N" and filled:
+            problems.append(f"'{col}' is N/A in the glossary but filled on {filled} of {len(raw)} rows")
+    return problems
+
+
+def check_csv_examples(models, glossary_truth):
     import pandas as pd
     from toolkit.main import Toolkit
 
@@ -606,15 +647,20 @@ def check_csv_examples(models):
         if not path.exists():
             print(f"  {model}: no example CSV found ({path.name})")
             continue
-        before = len(pd.read_csv(path))
+        raw = pd.read_csv(path, dtype=str)
+        before = len(raw)
         try:
             df = t._process_file(str(path), "OBO")
         except Exception as e:
             print(f"  {model}: FAILED to process -- {e}")
             continue
         after = len(df)
-        status = "OK" if after == before else f"DROPPED {before - after} of {before} rows"
-        print(f"  {model}: {status}")
+        problems = glossary_csv_mismatches(raw, glossary_truth.get(model, {}))
+        if after != before:
+            problems.insert(0, f"DROPPED {before - after} of {before} rows")
+        print(f"  {model}: {'OK' if not problems else 'MISMATCH'}")
+        for problem in problems:
+            print(f"    {problem}")
 
 
 # ---------------------------------------------------------------------------
@@ -762,7 +808,8 @@ def main():
         print(f"  wrote {GLOSSARY_PATH.relative_to(REPO_ROOT)}")
 
     if args.csv:
-        check_csv_examples(models)
+        # Re-read: --write above may have just changed glossary.md.
+        check_csv_examples(models, load_glossary_ground_truth())
     if args.yarrrml:
         check_yarrrml_coverage(models)
 

@@ -12,7 +12,7 @@ The following table is the complete list of available columns:
 | `pid`              | Literal (integer)  | Patient unique identifier. |
 | `event_id`         | Literal (integer)  | Event-specific identifier used to contextualize several data elements under the same medical visit or encounter. |
 | `value`            | Literal (string, number, or date)  | Lexical value of this data element. |
-| `value_datatype`   | Literal (string)   | Additional metadata of the `value` column, using the [XML Schema Definition Language (XSD)](https://www.w3.org/TR/xmlschema11-1/). Expected datatype: `xsd:date`, `xsd:string`, `xsd:float`, `xsd:integer` or `xsd:boolean`.|
+| `value_datatype`   | Literal (string)   | Additional metadata of the `value` column, using the [XML Schema Definition Language (XSD)](https://www.w3.org/TR/xmlschema11-1/). Expected datatype: `xsd:date`, `xsd:string`, `xsd:float`, `xsd:integer` or `xsd:boolean`. Every data element has a default datatype (given in its glossary entry below) that the Toolkit applies when this column is left blank; only supply a different one where the entry describes an alternative.|
 | `activity`         | IRI      | Full conceptual IRI describing a specific process associated with this data element, such as a clinical method or route of administration. |
 | `unit`             | IRI      | Full conceptual IRI describing the data element’s unit of measurement. |
 | `input`            | IRI      | Full conceptual IRI defining any input associated with the clinical procedure, such as a medication used or a related tissue sample. |
@@ -76,7 +76,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Birthdate
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: ISO 8601-formatted birthdate.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:date`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
@@ -106,10 +106,10 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 
 **This data element can be queried (in an aggregated and anonymized manner) through the Beacon API developed for CARE-SM. For more information, click [here](https://github.com/CARE-SM/beaconAPI4CARESM)**
 
-- ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Birthdate
+- ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Birthyear
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: The year (YYYY) in which a person was born.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:integer`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
@@ -141,8 +141,8 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Birthplace
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value**:
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value**: Country code, as a string (e.g. `ES`), recorded as the lexical value of the `output_id` country identifier.
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:string`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
@@ -173,7 +173,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Deathdate
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: ISO 8601-formatted date of death (not date time)
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:date`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
@@ -206,7 +206,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Sex
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: Human-readable label of the concept IRI used for `attribute_type`.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:string`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
@@ -243,7 +243,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: First_visit
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: ISO 8601-formatted date of first confirmed visit.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:date`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
@@ -274,7 +274,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Status
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: Human-readable label of the concept IRI used for `attribute_type`.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:string`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
@@ -300,6 +300,9 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 
 ** If you are representing CARE-SM with the **OBO Foundry**, use the one of the following **NCIT terms**:
   - http://purl.obolibrary.org/obo/NCIT_C37987 (Alive)
+  - http://purl.obolibrary.org/obo/NCIT_C141463 (Presumed Alive)
+  - http://purl.obolibrary.org/obo/NCIT_C99799 (Pronounced Dead)
+  - http://purl.obolibrary.org/obo/NCIT_C99798 (Presumed Dead)
   - http://purl.obolibrary.org/obo/NCIT_C90387 (Found Dead)
   - http://purl.obolibrary.org/obo/NCIT_C70740 (Subject Lost to Follow Up)
   - http://purl.obolibrary.org/obo/NCIT_C124784 (Refusal To Participate)
@@ -313,7 +316,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Symptoms_onset
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: One of the following:
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: `xsd:date` (the default) when `value` is the date of the symptoms onset, or `xsd:integer` when `value` is the age of onset.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
@@ -349,7 +352,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Phenotype
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: Boolean result of the observation -- `true` if the phenotype was confirmed present, `false` if it was explicitly tested for and confirmed absent.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:boolean`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **target**: Full concept IRI for the phenotype being tested (e.g. an HPO code). Together with `value`, forms the complete assertion: "was this phenotype observed?"
@@ -382,7 +385,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Diagnosis
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: Boolean result of the observation -- `true` if the diagnosis was confirmed, `false` if it was explicitly tested for and confirmed absent.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:boolean`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **input**: Structural schema placeholder only, never populated via CSV -- see the "Note on `Process_ --has input--> Input_`" in the Diagnosis diagram for why.
@@ -413,7 +416,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Examination
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: Resulting value from this examination.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:float`; leave blank to use the default.
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **activity**: Full concept IRI for the specific method activity.
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **unit**: Full concept IRI for the unit of measurement.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
@@ -450,7 +453,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Laboratory
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: value of the laboratory measurement.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:float`; leave blank to use the default.
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **activity**: Full concept IRI for the specific method annotation.
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **unit**: Full concept IRI for the unit of measurement.
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **input**: Full concept IRI for the substance sample analysed.
@@ -514,7 +517,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Medication
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: Prescribed or Administrated dose value.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:float`; leave blank to use the default.
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **activity**: Full concept IRI for the route of administration.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **unit**: Full concept IRI for the unit of measurement.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **input**: Full concept IRI identifying the specific drug administered or prescribed. `Input_`'s type is always the fixed "Drug Product Component" constant; this is the drug's own identity.
@@ -548,8 +551,8 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Hospitalization
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
-- ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: Generic optional output value, for future use -- no fixed meaning defined yet for hospitalization outcomes.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value**: Generic optional output value, for future use -- no fixed meaning defined yet for hospitalization outcomes.
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:string`; leave blank to use the default.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **activity**: Full concept IRI for the specific activity performed during the hospitalization.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **target**:
@@ -579,8 +582,8 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Surgery
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
-- ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: Generic optional output value, for future use -- no fixed meaning defined yet for surgical outcomes.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value**: Generic optional output value, for future use -- no fixed meaning defined yet for surgical outcomes.
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:string`; leave blank to use the default.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **activity**: Full concept IRI for the specific activity performed during the surgery.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
@@ -611,7 +614,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Questionnaire
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: Score/value of the patient reported response.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:float`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **input**: Full concept IRI for the clinical question or statement to report.
@@ -642,7 +645,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Functional_Assessment
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: Score/value of the patient reported response.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:float`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **unit**: Full concept IRI for the unit of measurement.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
@@ -672,8 +675,8 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Biobank
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value**:
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value**: Sample accession identifier, recorded as the lexical value of the `output_id` biobank identifier.
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:string`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **input**: Full concept IRI for the type of tissue/sample collected during the sampling process.
@@ -704,7 +707,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Consent
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **value**: some label describing consent outcome
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:string`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **input**: Structural only -- `Input_`'s type is always the fixed "Consent Form" constant; see `input_value` for the actual filename.
@@ -738,7 +741,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Clinical_trial
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:string`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **target**: Full concept IRI for the genetic or disease condition.
@@ -751,7 +754,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **event_id**: Visit occurrence identifier.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **organisation**:
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **protocol_id**: IRI reference to any associated protocol.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value**: Study report name/identifier, recorded as the lexical value of the `output_id` identifier.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **duration_value**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **duration_startdate**:
@@ -762,8 +765,6 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **output_type**:
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **output_id**: Full IRI identifying the clinical trial.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **cause_id**:
-
-- ![](https://placehold.co/15x15/1589F0/1589F0..png) **value**: Study report name/identifier.
 <hr>
 
 (cohort_glossary)=
@@ -771,7 +772,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **model**: Cohort
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **pid**: Patient Unique Identifier.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value_datatype**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value_datatype**: Defaults to `xsd:string`; leave blank to use the default.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **unit**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **input**:
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **target**: Full concept IRI for the genetic or disease condition.
@@ -784,7 +785,7 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **event_id**: Visit occurrence identifier.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **organisation**:
 - ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **protocol_id**: IRI reference to any associated protocol.
-- ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **value**:
+- ![](https://placehold.jp/12/d7a028/000000/20x20.png?text=O) **value**: Study report name/identifier, recorded as the lexical value of the `output_id` identifier.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **activity**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **duration_value**:
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **duration_startdate**:
@@ -795,7 +796,5 @@ This guide explains how to structure, populate, and utilize CSV files for patien
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **output_type**:
 - ![](https://placehold.jp/12/2854d7/ffffff/20x20.png?text=M) **output_id**: Full IRI identifying the cohort.
 - ![](https://placehold.jp/12/a29e96/000000/20x20.png?text=N) **cause_id**:
-
-- ![](https://placehold.co/15x15/1589F0/1589F0..png) **value**: Study report name/identifier.
 <hr>
 
